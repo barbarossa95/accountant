@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import TimeTable from './containers/TimeTable';
+import Wallet from './containers/Wallet';
+
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <Wallet />
+        <TimeTable />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
