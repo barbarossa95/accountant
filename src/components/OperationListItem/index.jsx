@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './OperationListItem.css';
 
 import { moneyFormat, operationName } from '../../helpers/functions';
+
 const OperationListItem = props => {
   const { type, amount, description } = props;
 
@@ -12,6 +15,12 @@ const OperationListItem = props => {
       <span>{description || ''}</span>
     </div>
   );
+};
+
+OperationListItem.propTypes = {
+  type: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  description: PropTypes.string,
 };
 
 export default OperationListItem;

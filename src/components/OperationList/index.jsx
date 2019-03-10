@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import OperationListItem from '../OperationListItem';
 
@@ -16,6 +17,10 @@ const OperationList = props => {
       )}
     </div>
   );
+};
+
+OperationList.propTypes = {
+  operations: PropTypes.array.isRequired,
 };
 
 export default OperationList;
