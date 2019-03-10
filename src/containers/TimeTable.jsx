@@ -7,7 +7,6 @@ class TimeTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // operations: [1, 2, 3, 4, 5, 6],
       operations: [
         {
           type: OPERATION_CREDIT,
