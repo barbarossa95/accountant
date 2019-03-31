@@ -14,10 +14,14 @@ const ModalWindow = ({ isOpen, closeModal }) => {
       left: '50%',
       right: 'auto',
       bottom: 'auto',
-      marginRight: '-50%',
+      padding: '30px',
       transform: 'translate(-50%, -50%)',
+      marginRight: '-50%',
+      width: '300px',
+      height: '50%',
     },
   };
+
   const [addAnother, setAddAnother] = useState(false);
 
   const onSubmit = opeartion => {
@@ -26,9 +30,14 @@ const ModalWindow = ({ isOpen, closeModal }) => {
   };
 
   return (
-    <ReactModal customStyles={customStyles} isOpen={isOpen}>
-      <OperationForm onSubmit={onSubmit} />
-
+    <ReactModal
+      style={customStyles}
+      isOpen={isOpen}
+      onRequestClose={closeModal}>
+      <button className="btn-close" type="button" onClick={closeModal}>
+        x
+      </button>
+      <OperationForm onCreateOperation={onSubmit} onClode />
       <label>
         <input
           name="shouldClose"
