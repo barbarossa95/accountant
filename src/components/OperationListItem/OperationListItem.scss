@@ -6,21 +6,21 @@
   border: 1px solid #ccc;
   border-radius: 3px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
 
-.debit {
-  background: #bfffcb;
-}
+  :last-child {
+    margin-bottom: 0;
+  }
 
-.credit {
-  background: #ffaeae;
-}
+  .item_row {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
 
-.operation-list_item:last-child {
-  margin-bottom: 0;
-}
+  &.debit {
+    background: #bfffcb;
+  }
 
-.operation-list_item .item_row {
-  display: inline-flex;
-  flex-wrap: wrap;
+  &.credit {
+    background: #ffaeae;
+  }
 }
