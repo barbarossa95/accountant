@@ -7,7 +7,7 @@ const WalletInfo = ({ balance }) => {
   return (
     <div>
       <span>Текущий остаток:</span>
-      <span>{moneyFormat(balance)}</span>
+      <strong>{moneyFormat(balance)}</strong>
     </div>
   );
 };
