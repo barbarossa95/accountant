@@ -1,51 +1,10 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import OperationList from '../components/OperationList';
-import { OPERATION_CREDIT, OPERATION_DEBIT } from '../helpers/constants';
+import TimeTable from '../components/TimeTable';
 
-class TimeTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      operations: [
-        {
-          type: OPERATION_DEBIT,
-          amount: 100,
-          description: 'test',
-          timestamp: new Date().getTime(),
-        },
-        {
-          type: OPERATION_CREDIT,
-          amount: 20,
-          description: 'test',
-          timestamp: new Date().getTime(),
-        },
-        {
-          type: OPERATION_CREDIT,
-          amount: 20,
-          description: 'test',
-          timestamp: new Date().getTime(),
-        },
-        {
-          type: OPERATION_CREDIT,
-          amount: 20,
-          description: 'test',
-          timestamp: new Date().getTime(),
-        },
-        {
-          type: OPERATION_CREDIT,
-          amount: 20,
-          description: 'test',
-          timestamp: new Date().getTime(),
-        },
-      ],
-    };
-  }
+const mapStateToProps = state => ({ operations: state.operations.operations });
 
-  render() {
-    const { operations } = this.state;
-    return <OperationList operations={operations} />;
-  }
-}
-
-export default TimeTable;
+export default connect(
+  mapStateToProps,
+  null
+)(TimeTable);
