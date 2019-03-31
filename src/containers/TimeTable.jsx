@@ -9,14 +9,32 @@ class TimeTable extends Component {
     this.state = {
       operations: [
         {
+          type: OPERATION_DEBIT,
+          amount: 100,
+          description: 'test',
+          timestamp: new Date().getTime(),
+        },
+        {
           type: OPERATION_CREDIT,
           amount: 20,
           description: 'test',
           timestamp: new Date().getTime(),
         },
         {
-          type: OPERATION_DEBIT,
-          amount: 100,
+          type: OPERATION_CREDIT,
+          amount: 20,
+          description: 'test',
+          timestamp: new Date().getTime(),
+        },
+        {
+          type: OPERATION_CREDIT,
+          amount: 20,
+          description: 'test',
+          timestamp: new Date().getTime(),
+        },
+        {
+          type: OPERATION_CREDIT,
+          amount: 20,
           description: 'test',
           timestamp: new Date().getTime(),
         },
