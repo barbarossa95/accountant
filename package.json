@@ -11,7 +11,11 @@
     "react-final-form": "^4.1.0",
     "react-modal": "^3.8.1",
     "react-redux": "^6.0.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
