@@ -35,7 +35,7 @@ const OperationListItem = ({ type, amount, description, timestamp }) => {
       <small className="time">
         {moment(timestamp).fromNow()}
         <span className="tooltip">
-          {moment(timestamp).format('D MMMM YYYY HH:MM')}
+          {moment(timestamp).format('D MMMM YYYY HH:mm')}
         </span>
       </small>
     </div>
