@@ -8,10 +8,12 @@ import { operationName } from '../../helpers/functions';
 const OperationForm = ({ onCreateOperation }) => {
   const options = [c.OPERATION_CREDIT, c.OPERATION_DEBIT];
 
-  const onSubmit = values =>
+  const onSubmit = (values, form) => {
     onCreateOperation({
       ...values,
     });
+    form.reset();
+  };
 
   return (
     <Form

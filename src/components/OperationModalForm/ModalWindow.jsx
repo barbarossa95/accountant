@@ -22,11 +22,11 @@ const ModalWindow = ({ isOpen, closeModal }) => {
     },
   };
 
-  const [addAnother, setAddAnother] = useState(false);
+  const [addAnother, setAddAnother] = useState(true);
 
   const onSubmit = opeartion => {
     console.log(opeartion);
-    addAnother && closeModal();
+    !addAnother && closeModal();
   };
 
   return (
@@ -42,6 +42,7 @@ const ModalWindow = ({ isOpen, closeModal }) => {
         <input
           name="shouldClose"
           type="checkbox"
+          value={addAnother}
           onChange={e => setAddAnother(e.target.checked)}
         />
         Добавить еще
