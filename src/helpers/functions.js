@@ -4,8 +4,8 @@ export const moneyFormat = value => `${value.toFixed(2)} \u{20BD}`;
 
 export const operationName = type => {
   const operations = {
-    [consts.OPERATION_CREDIT]: 'Credit',
-    [consts.OPERATION_DEBIT]: 'Debit',
+    [consts.OPERATION_CREDIT]: 'Расход',
+    [consts.OPERATION_DEBIT]: 'Доход',
   };
   return operations[type] || 'Unknown operation';
 };
