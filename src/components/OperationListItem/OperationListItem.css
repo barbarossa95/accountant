@@ -1,0 +1,26 @@
+.operation-list_item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.debit {
+  background: #bfffcb;
+}
+
+.credit {
+  background: #ffaeae;
+}
+
+.operation-list_item:last-child {
+  margin-bottom: 0;
+}
+
+.operation-list_item .item_row {
+  display: inline-flex;
+  flex-wrap: wrap;
+}

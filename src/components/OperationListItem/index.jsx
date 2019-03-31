@@ -3,16 +3,34 @@ import PropTypes from 'prop-types';
 
 import './OperationListItem.css';
 
-import { moneyFormat, operationName } from '../../helpers/functions';
+import {
+  moneyFormat,
+  operationName,
+  operationCssClass,
+} from '../../helpers/functions';
 
-const OperationListItem = props => {
-  const { type, amount, description } = props;
-
+const OperationListItem = ({ type, amount, description }) => {
   return (
-    <div>
-      <span>Operation: {operationName(type)}</span>
-      <span>Amount: {moneyFormat(amount)}</span>
-      <span>{description || ''}</span>
+    <div className={`operation-list_item ${operationCssClass(type)}`}>
+      <div className="item_row">
+        <span className="type">
+          <strong>Операция: </strong>
+          {operationName(type)}
+        </span>
+        &nbsp;
+        <span className="amount">
+          <strong>Сумма: </strong>
+          {moneyFormat(amount)}
+        </span>
+      </div>
+      {description ? (
+        <div className="item_row">
+          <span className="description">
+            <strong>Описание: </strong>
+            {description}
+          </span>
+        </div>
+      ) : null}
     </div>
   );
 };
