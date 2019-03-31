@@ -1,8 +1,8 @@
-import actionTypes from '../actionTypes/operation';
+import actionTypes from '../actionTypes/operations';
 
 export const addOperation = operation => async dispatch => {
   dispatch({
-    type: '',
+    type: actionTypes.ADD_OPERATION,
     operation,
   });
 };
