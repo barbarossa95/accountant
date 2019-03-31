@@ -17,3 +17,14 @@ export const operationCssClass = type => {
   };
   return operations[type] || null;
 };
+
+export const calcBalance = operations => {
+  let balance = 0;
+  operations.forEach(operation => {
+    operation.type === consts.OPERATION_CREDIT
+      ? (balance -= operation.amount)
+      : (balance += operation.amount);
+  });
+
+  return balance;
+};
