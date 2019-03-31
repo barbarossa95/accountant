@@ -9,8 +9,8 @@ const OperationList = ({ operations }) => {
   return (
     <div className="operation-list">
       {operations.length ? (
-        operations.map((element, index) => (
-          <OperationListItem key={index} {...element} />
+        operations.map((operation, index) => (
+          <OperationListItem key={index} {...operation} />
         ))
       ) : (
         <div>there is no operations yet...</div>
