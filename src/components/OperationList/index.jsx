@@ -5,9 +5,7 @@ import './OperationList.scss';
 
 import OperationListItem from '../OperationListItem';
 
-const OperationList = props => {
-  const { operations } = props;
-
+const OperationList = ({ operations }) => {
   return (
     <div className="operation-list">
       {operations.length ? (
