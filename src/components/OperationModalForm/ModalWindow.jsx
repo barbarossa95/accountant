@@ -7,7 +7,7 @@ import OperationForm from './OperationForm';
 
 ReactModal.setAppElement('#root');
 
-const ModalWindow = ({ isOpen, closeModal }) => {
+const ModalWindow = ({ isOpen, closeModal, onSubmit }) => {
   const customStyles = {
     content: {
       top: '50%',
@@ -22,10 +22,10 @@ const ModalWindow = ({ isOpen, closeModal }) => {
     },
   };
 
-  const [addAnother, setAddAnother] = useState(true);
+  const [addAnother, setAddAnother] = useState(false);
 
-  const onSubmit = opeartion => {
-    console.log(opeartion);
+  const onSubmitHandler = opeartion => {
+    onSubmit(opeartion);
     !addAnother && closeModal();
   };
 
@@ -37,12 +37,12 @@ const ModalWindow = ({ isOpen, closeModal }) => {
       <button className="btn-close" type="button" onClick={closeModal}>
         x
       </button>
-      <OperationForm onCreateOperation={onSubmit} onClode />
+      <OperationForm onCreateOperation={onSubmitHandler} />
       <label>
         <input
           name="shouldClose"
           type="checkbox"
-          value={addAnother}
+          defaultChecked={addAnother}
           onChange={e => setAddAnother(e.target.checked)}
         />
         Добавить еще
