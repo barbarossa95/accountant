@@ -11,6 +11,7 @@ const OperationForm = ({ onCreateOperation }) => {
   const onSubmit = (values, form) => {
     onCreateOperation({
       ...values,
+      timestamp: new Date().getTime(),
     });
     form.reset();
   };
