@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { moneyFormat } from '../../helpers/functions';
 
-const WalletInfo = props => {
+const WalletInfo = ({ balance }) => {
   return (
     <div>
       <span>Текущий остаток:</span>
-      <span>{moneyFormat(props.balance)}</span>
+      <span>{moneyFormat(balance)}</span>
     </div>
   );
 };
