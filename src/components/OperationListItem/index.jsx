@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import './OperationListItem.scss';
 
@@ -9,7 +10,7 @@ import {
   operationCssClass,
 } from '../../helpers/functions';
 
-const OperationListItem = ({ type, amount, description }) => {
+const OperationListItem = ({ type, amount, description, timestamp }) => {
   return (
     <div className={`operation-list_item ${operationCssClass(type)}`}>
       <div className="item_row">
@@ -31,6 +32,12 @@ const OperationListItem = ({ type, amount, description }) => {
           </span>
         </div>
       ) : null}
+      <small className="time">
+        {moment(timestamp).fromNow()}
+        <span className="tooltip">
+          {moment(timestamp).format('D MMMM YYYY HH:MM')}
+        </span>
+      </small>
     </div>
   );
 };
