@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
+import Header from './containers/Header';
 import TimeTable from './containers/TimeTable';
-import Wallet from './containers/Wallet';
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Wallet />
+        <Header />
         <TimeTable />
       </React.Fragment>
     );
