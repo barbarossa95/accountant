@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './OperationList.css';
+import './OperationList.scss';
 
 import OperationListItem from '../OperationListItem';
 

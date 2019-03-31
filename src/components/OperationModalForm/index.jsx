@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import ModalWindow from './ModalWindow';
 
-import './OperationModalForm.css';
+import './OperationModalForm.scss';
 
 const OperationModalForm = ({ onSubmitHandler }) => {
   const [isOpen, setModalIsOpen] = useState(false);
