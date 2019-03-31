@@ -1,45 +1,53 @@
 import actionTypes from '../actionTypes/operations';
 
+import { calcBalance } from '../../helpers/functions';
+
+const initOperations = [
+  {
+    type: 'OPERATION_DEBIT',
+    amount: 100,
+    description: 'test',
+    timestamp: new Date().getTime(),
+  },
+  {
+    type: 'OPERATION_CREDIT',
+    amount: 20,
+    description: 'test',
+    timestamp: new Date().getTime(),
+  },
+  {
+    type: 'OPERATION_CREDIT',
+    amount: 20,
+    description: 'test',
+    timestamp: new Date().getTime(),
+  },
+  {
+    type: 'OPERATION_CREDIT',
+    amount: 20,
+    description: 'test',
+    timestamp: new Date().getTime(),
+  },
+  {
+    type: 'OPERATION_CREDIT',
+    amount: 20,
+    description: 'test',
+    timestamp: new Date().getTime(),
+  },
+];
+
 const initialState = {
-  balance: 0,
-  operations: [
-    {
-      type: 'OPERATION_DEBIT',
-      amount: 100,
-      description: 'test',
-      timestamp: new Date().getTime(),
-    },
-    {
-      type: 'OPERATION_CREDIT',
-      amount: 20,
-      description: 'test',
-      timestamp: new Date().getTime(),
-    },
-    {
-      type: 'OPERATION_CREDIT',
-      amount: 20,
-      description: 'test',
-      timestamp: new Date().getTime(),
-    },
-    {
-      type: 'OPERATION_CREDIT',
-      amount: 20,
-      description: 'test',
-      timestamp: new Date().getTime(),
-    },
-    {
-      type: 'OPERATION_CREDIT',
-      amount: 20,
-      description: 'test',
-      timestamp: new Date().getTime(),
-    },
-  ],
+  balance: calcBalance(initOperations),
+  operations: initOperations,
 };
 
 const operationHandler = {
   [actionTypes.ADD_OPERATION](state, { operation }) {
+    const operations = [...state.operations, operation];
+
     return {
-      operations: [...state.operations, operation],
+      ...state,
+      balance: calcBalance(operations),
+      operations,
     };
   },
 };
