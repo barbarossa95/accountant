@@ -9,3 +9,11 @@ export const operationName = type => {
   };
   return operations[type] || 'Unknown operation';
 };
+
+export const operationCssClass = type => {
+  const operations = {
+    [consts.OPERATION_CREDIT]: 'credit',
+    [consts.OPERATION_DEBIT]: 'debit',
+  };
+  return operations[type] || null;
+};
