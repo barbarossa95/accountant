@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import WalletInfo from '../components/WalletInfo';
+import OperationModalForm from '../components/OperationModalForm';
 
 class Wallet extends Component {
   constructor(props) {
@@ -12,7 +13,14 @@ class Wallet extends Component {
 
   render() {
     const { balance } = this.state;
-    return <WalletInfo balance={balance} />;
+    return (
+      <React.Fragment>
+        <WalletInfo balance={balance} />
+        <OperationModalForm
+          onSubmitHandler={operation => console.log(operation)}
+        />
+      </React.Fragment>
+    );
   }
 }
 
