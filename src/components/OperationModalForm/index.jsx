@@ -4,7 +4,7 @@ import ModalWindow from './ModalWindow';
 
 import './OperationModalForm.scss';
 
-const OperationModalForm = ({ onSubmitHandler }) => {
+const OperationModalForm = ({ onSubmit }) => {
   const [isOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => setModalIsOpen(true);
@@ -16,7 +16,11 @@ const OperationModalForm = ({ onSubmitHandler }) => {
       <h2>Добавить новую операцию</h2>
       <button onClick={openModal}>Добавить</button>
 
-      <ModalWindow isOpen={isOpen} closeModal={closeModal} />
+      <ModalWindow
+        isOpen={isOpen}
+        closeModal={closeModal}
+        onSubmit={onSubmit}
+      />
     </React.Fragment>
   );
 };

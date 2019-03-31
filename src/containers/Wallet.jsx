@@ -16,9 +16,7 @@ class Wallet extends Component {
     return (
       <React.Fragment>
         <WalletInfo balance={balance} />
-        <OperationModalForm
-          onSubmitHandler={operation => console.log(operation)}
-        />
+        <OperationModalForm onSubmit={operation => console.log(operation)} />
       </React.Fragment>
     );
   }
