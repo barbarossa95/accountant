@@ -24,10 +24,12 @@ const OperationForm = ({ onCreateOperation }) => {
     form.reset();
   };
 
-  const required = value => (value ? undefined : 'Required');
-  const mustBeNumber = value => (isNaN(value) ? 'Must be a number' : undefined);
+  const required = value =>
+    value ? undefined : 'Поле обязательно для заполнения';
+  const mustBeNumber = value =>
+    isNaN(value) ? 'Значение должно быть числом' : undefined;
   const minValue = min => value =>
-    isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
+    isNaN(value) || value >= min ? undefined : `Должно быть больше ${min}`;
   const composeValidators = (...validators) => value =>
     validators.reduce(
       (error, validator) => error || validator(value),
@@ -38,36 +40,47 @@ const OperationForm = ({ onCreateOperation }) => {
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({ handleSubmit, form, submitting, pristine }) => (
         <form className="operation-form" onSubmit={handleSubmit}>
-          <Field id="type" name="type" component="select" validate={required}>
-            {({ input, meta }) => (
-              <div className="operation-form_row">
-                <label htmlFor="type">Тип операции</label>
-                <select {...input} id="type">
-                  {options.map((option, key) => (
-                    <option key={key} value={option}>
-                      {operationName(option)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </Field>
+          <div className="operation-form_row" />
 
-          <Field
-            name="amount"
-            validate={composeValidators(required, mustBeNumber, minValue(0))}>
-            {({ input, meta }) => (
-              <div className="operation-form_row">
-                <label htmlFor="amount">Сумма</label>
-                <input {...input} id="amount" type="text" placeholder="Сумма" />
-                {meta.error && meta.touched && (
-                  <span className="error">{meta.error}</span>
-                )}
-              </div>
-            )}
-          </Field>
+          <div className="operation-form_row">
+            <Field id="type" name="type" component="select" validate={required}>
+              {({ input }) => (
+                <label htmlFor="type">
+                  Тип:
+                  <select {...input} id="type">
+                    {options.map((option, key) => (
+                      <option key={key} value={option}>
+                        {operationName(option)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+            </Field>
+            &nbsp;
+            <Field
+              name="amount"
+              validate={composeValidators(required, mustBeNumber, minValue(0))}>
+              {({ input, meta }) => (
+                <label htmlFor="amount">
+                  Сумма:
+                  <input
+                    {...input}
+                    id="amount"
+                    type="text"
+                    style={{ width: 35 }}
+                    placeholder="10"
+                  />
+                  ₽
+                  {meta.error && meta.touched && (
+                    <span className="error">{meta.error}</span>
+                  )}
+                </label>
+              )}
+            </Field>
+          </div>
 
           <Field
             id="description"
