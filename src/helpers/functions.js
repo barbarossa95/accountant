@@ -1,4 +1,5 @@
 import * as consts from './constants';
+import moment from 'moment';
 
 export const moneyFormat = value => `${value.toFixed(2)} \u{20BD}`;
 
@@ -18,13 +19,25 @@ export const operationCssClass = type => {
   return operations[type] || null;
 };
 
-export const calcBalance = operations => {
-  let balance = 0;
-  operations.forEach(operation => {
-    operation.type === consts.OPERATION_CREDIT
+export const calcBalance = (operations, initialBalance = 0) => {
+  return operations.reduce((balance, operation) => {
+    return operation.type === consts.OPERATION_CREDIT
       ? (balance -= operation.amount)
       : (balance += operation.amount);
-  });
+  }, initialBalance);
+};
 
-  return balance;
+export const parsePeriodBorders = (time, period = 'week') => {
+  let periodFormat = {
+      week: 'D MMMM YYYY',
+      mounth: 'MMMM YYYY',
+    },
+    date = moment(time * (1000 * 60 * 60 * 24 * 7)),
+    start = date.startOf(period).format(periodFormat[period]),
+    end = date.endOf(period).format(periodFormat[period]);
+
+  return {
+    start,
+    end,
+  };
 };
