@@ -19,6 +19,7 @@ const ModalWindow = ({ isOpen, closeModal, onSubmit }) => {
       marginRight: '-50%',
       width: '300px',
       height: '50%',
+      overflow: 'hidden',
     },
   };
 
