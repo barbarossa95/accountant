@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
 import operations from './reducers/operations';
+import filters from './reducers/filters';
 
 const logger = createLogger({
   collapsed: true,
@@ -12,6 +13,7 @@ const logger = createLogger({
 export const store = createStore(
   combineReducers({
     operations,
+    filters,
   }),
   composeWithDevTools(applyMiddleware(thunk, logger))
 );
