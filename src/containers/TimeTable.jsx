@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-import { getGroupedOperations } from '../store/selectors';
+import { getSortedOperations } from '../store/selectors';
 
 import TimeTable from '../components/TimeTable';
 
 const mapStateToProps = state => ({
-  operations: getGroupedOperations(state),
+  operations: getSortedOperations(state),
   filters: state.filters,
 });
 

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import * as constants from '../../helpers/constants';
+import { sortOperations } from '../../helpers/functions';
 
 export const getOperations = state => state.operations.operations;
 
@@ -43,6 +44,22 @@ export const getGroupedOperations = createSelector(
       case constants.PERIOD_NONE:
       default:
         return operations;
+    }
+  }
+);
+
+export const getSortedOperations = createSelector(
+  [getGroupedOperations, getPeriod],
+  (operations, period) => {
+    switch (period) {
+      case constants.PERIOD_WEEK:
+        Object.entries(operations).forEach(([week, operationsInWeek]) => {
+          operations[week] = operationsInWeek.sort(sortOperations);
+        });
+        return operations;
+      case constants.PERIOD_NONE:
+      default:
+        return operations.sort(sortOperations);
     }
   }
 );
