@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import OperationList from '../components/OperationList';
 import OperationWeek from '../components/OperationWeek';
 import * as constants from '../helpers/constants';
 
-const TimeTable = ({ operations, filters }) => {
+const TimeTable = ({ operations, filters, fetchOperations }) => {
+  useEffect(() => {
+    fetchOperations();
+  }, fetchOperations);
+
   switch (filters.period) {
     case constants.PERIOD_WEEK:
       return <OperationWeek operations={operations} />;
