@@ -41,3 +41,11 @@ export const parsePeriodBorders = (time, period = 'week') => {
     end,
   };
 };
+
+export const sortOperations = (opA, opB) => {
+  if (opA.type === opB.type) return opA.timestamp - opB.timestamp;
+
+  if (opA.type === consts.OPERATION_CREDIT) return 1;
+
+  return -1;
+};
