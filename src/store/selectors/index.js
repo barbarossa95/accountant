@@ -7,26 +7,8 @@ export const getOperations = state => state.operations.operations;
 
 export const getPeriod = state => state.filters.period;
 
-export const getOperationsWithPeriodIndex = createSelector(
-  [getOperations, getPeriod],
-  (operations, period) => {
-    return operations.map(operation => {
-      switch (period) {
-        case constants.PERIOD_WEEK:
-          return {
-            ...operation,
-            periodIndex: new Date(operation.timestamp).getDay(),
-          };
-        case constants.PERIOD_NONE:
-        default:
-          return operation;
-      }
-    });
-  }
-);
-
 export const getGroupedOperations = createSelector(
-  [getOperationsWithPeriodIndex, getPeriod],
+  [getOperations, getPeriod],
   (operations, period) => {
     switch (period) {
       case constants.PERIOD_WEEK:
