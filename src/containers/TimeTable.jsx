@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { getSortedOperations } from '../store/selectors';
 
-import { fetchOperations } from '../store/actions/operations';
+import { fetchOperations, removeOperation } from '../store/actions/operations';
 
 import TimeTable from '../components/TimeTable';
 
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchOperations,
+  removeOperation,
 };
 
 export default connect(
