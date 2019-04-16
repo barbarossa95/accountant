@@ -10,7 +10,12 @@ import {
   operationCssClass,
 } from '../../helpers/functions';
 
-const OperationListItem = ({ id, type, amount, description, timestamp }) => {
+const OperationListItem = ({
+  operation,
+  operation: { id, type, amount, description, timestamp },
+  editHandler,
+  removeHandler,
+}) => {
   return (
     <div className={`operation-list_item ${operationCssClass(type)}`}>
       <div className="item_row">
@@ -33,11 +38,11 @@ const OperationListItem = ({ id, type, amount, description, timestamp }) => {
         </div>
       ) : null}
       <div className="item_row controls">
-        <small onClick={() => console.log(id)} className="edit">
+        <small onClick={() => editHandler(operation)} className="edit">
           редактировать
         </small>
         &nbsp;
-        <small onClick={() => console.log(id)} className="remove">
+        <small onClick={() => removeHandler(operation)} className="remove">
           удалить
         </small>
       </div>
@@ -54,9 +59,9 @@ const OperationListItem = ({ id, type, amount, description, timestamp }) => {
 };
 
 OperationListItem.propTypes = {
-  type: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired,
-  description: PropTypes.string,
+  operation: PropTypes.object.isRequired,
+  editHandler: PropTypes.func.isRequired,
+  removeHandler: PropTypes.func.isRequired,
 };
 
 export default OperationListItem;
