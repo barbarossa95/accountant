@@ -69,7 +69,12 @@
     opacity: 0;
     user-select: none;
 
-    &:hover {
+    @media only screen and (max-width: 768px) {
+      opacity: 0.5;
+    }
+
+    &:hover,
+    &:active {
       opacity: 1;
       cursor: pointer;
     }
