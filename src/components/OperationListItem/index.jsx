@@ -10,7 +10,7 @@ import {
   operationCssClass,
 } from '../../helpers/functions';
 
-const OperationListItem = ({ type, amount, description, timestamp }) => {
+const OperationListItem = ({ id, type, amount, description, timestamp }) => {
   return (
     <div className={`operation-list_item ${operationCssClass(type)}`}>
       <div className="item_row">
@@ -32,12 +32,23 @@ const OperationListItem = ({ type, amount, description, timestamp }) => {
           </span>
         </div>
       ) : null}
-      <small className="time">
-        {moment(timestamp).fromNow()}
-        <span className="tooltip">
-          {moment(timestamp).format('D MMMM YYYY HH:mm')}
-        </span>
-      </small>
+      <div className="item_row controls">
+        <small onClick={() => console.log(id)} className="edit">
+          редактировать
+        </small>
+        &nbsp;
+        <small onClick={() => console.log(id)} className="remove">
+          удалить
+        </small>
+      </div>
+      <div className="item_row">
+        <small className="time">
+          {moment(timestamp).fromNow()}
+          <span className="tooltip">
+            {moment(timestamp).format('D MMMM YYYY HH:mm')}
+          </span>
+        </small>
+      </div>
     </div>
   );
 };
