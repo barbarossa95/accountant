@@ -14,9 +14,7 @@ export const getGroupedOperations = createSelector(
       case constants.PERIOD_WEEK:
         return operations.reduce((groups, operation) => {
           let weekIndex = new Date(operation.timestamp);
-          weekIndex = Math.floor(
-            weekIndex.getTime() / (1000 * 60 * 60 * 24 * 7)
-          );
+          weekIndex = Math.floor(weekIndex.getTime() / (1000 * 60 * 60 * 24));
 
           groups[weekIndex] = groups[weekIndex] || [];
           groups[weekIndex].push(operation);
