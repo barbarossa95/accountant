@@ -31,3 +31,20 @@ export const addOperation = operation => async dispatch => {
     operation,
   });
 };
+
+export const removeOperation = operation => async dispatch => {
+  const res = await axios.delete(`/operation/${operation.id}`);
+
+  if (res.status !== 204) {
+    console.error(res);
+
+    return false;
+  }
+
+  dispatch({
+    type: actionTypes.REMOVE_OPERATION,
+    operation,
+  });
+
+  return true;
+};

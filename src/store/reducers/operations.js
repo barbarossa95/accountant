@@ -29,6 +29,18 @@ const operationHandler = {
       balance: calcBalance([operation], balance),
     };
   },
+
+  [actionTypes.REMOVE_OPERATION](state, { operation }) {
+    const operations = state.operations.filter(
+      item => item.id !== operation.id
+    );
+
+    return {
+      ...state,
+      operations,
+      balance: calcBalance(operations, 0),
+    };
+  },
 };
 
 export default (state = initialState, action) =>
