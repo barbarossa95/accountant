@@ -9,9 +9,9 @@ const OperationList = ({ operations, handlers }) => {
   return (
     <div className="operation-list">
       {operations.length ? (
-        operations.map(operation => (
+        operations.map((operation, key) => (
           <OperationListItem
-            key={operation.id}
+            key={key}
             operation={operation}
             editHandler={handlers.editHandler}
             removeHandler={handlers.removeHandler}
