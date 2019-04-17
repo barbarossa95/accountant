@@ -1,13 +1,12 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { confirmable, createConfirmation } from 'react-confirm';
 import ReactModal from 'react-modal';
+import { confirmable, createConfirmation } from 'react-confirm';
 
 import './Modal.scss';
 
 ReactModal.setAppElement('#root');
 
-export const Modal = ({
+const Modal = ({
   show,
   dismiss,
   proceed,
@@ -19,9 +18,9 @@ export const Modal = ({
     <ReactModal
       isOpen={show}
       onRequestClose={dismiss}
-      className="react-modal"
-      overlayClassName="react-modal__overlay">
-      <ModalContent {...props} />
+      className="modal-window"
+      overlayClassName="react-overlay">
+      <ModalContent {...props} dismiss={dismiss} />
     </ReactModal>
   );
 };
