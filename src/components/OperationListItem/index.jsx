@@ -12,7 +12,7 @@ import {
 
 const OperationListItem = ({
   operation,
-  operation: { id, type, amount, description, timestamp },
+  operation: { type, amount, description, timestamp },
   editHandler,
   removeHandler,
 }) => {
