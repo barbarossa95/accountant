@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+import moment from 'moment';
+
 import * as constants from '../../helpers/constants';
 import { sortOperations } from '../../helpers/functions';
 
@@ -13,10 +15,7 @@ export const getGroupedOperations = createSelector(
     switch (period) {
       case constants.PERIOD_WEEK:
         return operations.reduce((groups, operation) => {
-          let weekIndex = new Date(operation.timestamp);
-          weekIndex = Math.floor(
-            weekIndex.getTime() / (1000 * 60 * 60 * 24 * 7)
-          );
+          let weekIndex = moment(operation.timestamp).format('YYYY[W]WW	'); // 2013W06 format
 
           groups[weekIndex] = groups[weekIndex] || [];
           groups[weekIndex].push(operation);

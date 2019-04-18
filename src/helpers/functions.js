@@ -32,7 +32,11 @@ export const parsePeriodBorders = (time, period = 'week') => {
       week: 'D MMMM YYYY',
       mounth: 'MMMM YYYY',
     },
-    date = moment(new Date(time * 1000 * 60 * 60 * 24 * 7)).add(4, 'days'),
+    parseFormats = {
+      week: 'YYYY[W]WW',
+      mounth: 'YYYY[M]MM',
+    },
+    date = moment(time, parseFormats[period]),
     start = date.startOf(period).format(periodFormat[period]),
     end = date.endOf(period).format(periodFormat[period]);
 
