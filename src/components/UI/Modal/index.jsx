@@ -20,7 +20,7 @@ const Modal = ({
       onRequestClose={dismiss}
       className="modal-window"
       overlayClassName="react-overlay">
-      <ModalContent {...props} dismiss={dismiss} />
+      <ModalContent {...props} proceed={proceed} dismiss={dismiss} />
     </ReactModal>
   );
 };
