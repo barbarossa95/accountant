@@ -1,3 +1,5 @@
+@import '../../../assets/styles/variables.scss';
+
 .operation-list_item {
   display: flex;
   flex-direction: column;
@@ -22,11 +24,11 @@
   }
 
   &.debit {
-    background: #bfffcb;
+    background: $green;
   }
 
   &.credit {
-    background: #ffaeae;
+    background: $red;
   }
 
   .time {
