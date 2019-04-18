@@ -38,10 +38,10 @@ const OperationListItem = ({
         </div>
       ) : null}
       <div className="item_row controls">
-        <small onClick={() => editHandler(operation)} className="edit">
+        {/* <small onClick={() => editHandler(operation)} className="edit">
           редактировать
         </small>
-        &nbsp;
+        &nbsp; */}
         <small onClick={() => removeHandler(operation)} className="remove">
           удалить
         </small>
