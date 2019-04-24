@@ -44,7 +44,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
               {({ input }) => (
                 <label>
                   Тип:
-                  <select {...input} id="type">
+                  <select {...input} id="type" tabIndex="1">
                     {options.map((option, key) => (
                       <option key={key} value={option}>
                         {operationName(option)}
@@ -66,9 +66,10 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
                     {...input}
                     id="amount"
                     type="number"
-                    placeholder="Сумма в рублях"
-                    step="0.01"
-                    min="0.01"
+                    placeholder="в рублях"
+                    step="0.1"
+                    min="0.1"
+                    tabIndex="2"
                   />
                   {meta.error && meta.touched && (
                     <span className="error">{meta.error}</span>
@@ -86,7 +87,13 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
               {({ input }) => (
                 <div className="operation-form_row">
                   <label htmlFor="description">Описание</label>
-                  <textarea {...input} id="description" cols="30" rows="10" />
+                  <textarea
+                    {...input}
+                    id="description"
+                    cols="30"
+                    rows="10"
+                    tabIndex="3"
+                  />
                 </div>
               )}
             </Field>
@@ -94,7 +101,11 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
 
           <div className="operation-form_row">
             <div className="buttons">
-              <button type="submit" disabled={submitting || pristine}>
+              <button
+                className="add"
+                type="submit"
+                disabled={submitting || pristine}
+                tabIndex="4">
                 Добавить
               </button>
               <button
@@ -103,7 +114,8 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
                   form.reset();
                   dismiss && dismiss();
                 }}
-                disabled={submitting}>
+                disabled={submitting}
+                tabIndex="5">
                 Отмена
               </button>
             </div>

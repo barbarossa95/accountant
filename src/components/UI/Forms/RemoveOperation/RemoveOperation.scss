@@ -1,0 +1,14 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.remove-operation {
+  & .item_row {
+    margin-bottom: 10px;
+  }
+
+  .error {
+    background: $red;
+    &:hover {
+      background: lighten($color: $red, $amount: 10);
+    }
+  }
+}

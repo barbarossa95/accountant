@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import OperationList from '../components/OperationList';
 import OperationWeek from '../components/OperationWeek';
 import * as constants from '../helpers/constants';
+import confirm from './UI/Modal';
+import RemoveOperation from './UI/Forms/RemoveOperation';
 
 const TimeTable = ({
   operations,
@@ -16,7 +18,10 @@ const TimeTable = ({
 
   const handlers = {
     editHandler: operation => console.log(operation),
-    removeHandler: removeOperation,
+    removeHandler: operation =>
+      confirm(RemoveOperation)
+        .then(() => removeOperation(operation))
+        .catch(() => console.log('удаление отменено')),
   };
 
   switch (filters.period) {
