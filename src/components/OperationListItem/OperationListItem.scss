@@ -44,7 +44,7 @@
     width: intrinsic; /* Safari/WebKit используют нестандартное имя */
     width: -moz-max-content; /* Firefox/Gecko */
     width: -webkit-max-content; /* Chrome */
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    border-bottom: 1px dotted $gray; /* If you want dots under the hoverable text */
 
     .tooltip {
       visibility: hidden;
