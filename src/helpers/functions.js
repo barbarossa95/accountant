@@ -3,6 +3,17 @@ import moment from 'moment';
 
 export const moneyFormat = value => `${value.toFixed(2)} \u{20BD}`;
 
+export const timeFormat = timestamp => {
+  const accurate = moment(timestamp).format('D MMMM YYYY HH:mm'),
+    display = moment().isAfter(moment(timestamp).add(1, 'day'))
+      ? accurate
+      : moment(timestamp).fromNow();
+  return {
+    display,
+    accurate,
+  };
+};
+
 export const operationName = type => {
   const operations = {
     [consts.OPERATION_CREDIT]: 'Расход',
