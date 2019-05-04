@@ -6,7 +6,7 @@ import './OperationListItem.scss';
 
 import {
   moneyFormat,
-  operationName,
+  timeFormat,
   operationCssClass,
 } from '../../helpers/functions';
 
@@ -16,42 +16,26 @@ const OperationListItem = ({
   editHandler,
   removeHandler,
 }) => {
+  const time = timeFormat(timestamp);
   return (
     <div className={`operation-list_item ${operationCssClass(type)}`}>
       <div className="item_row">
-        <span className="type">
-          <strong>Операция: </strong>
-          {operationName(type)}
-        </span>
-        &nbsp;
-        <span className="amount">
-          <strong>Сумма: </strong>
-          {moneyFormat(amount)}
-        </span>
+        <span className="amount">{moneyFormat(amount)}</span>
       </div>
       {description ? (
         <div className="item_row">
-          <span className="description">
-            <strong>Описание: </strong>
-            {description}
-          </span>
+          <span className="description">{description}</span>
         </div>
       ) : null}
       <div className="item_row controls">
-        {/* <small onClick={() => editHandler(operation)} className="edit">
-          редактировать
-        </small>
-        &nbsp; */}
         <small onClick={() => removeHandler(operation)} className="remove">
           удалить
         </small>
       </div>
       <div className="item_row">
         <small className="time">
-          {moment(timestamp).fromNow()}
-          <span className="tooltip">
-            {moment(timestamp).format('D MMMM YYYY HH:mm')}
-          </span>
+          {time.display}
+          <span className="tooltip">{time.accurate}</span>
         </small>
       </div>
     </div>
