@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '../../Button';
 import './RemoveOperation.scss';
 
 const RemoveOperation = ({ proceed, dismiss }) => {
@@ -11,10 +12,10 @@ const RemoveOperation = ({ proceed, dismiss }) => {
         <span>Вы уверены что хотите удалить эту операцию?</span>
       </div>
       <div className="item_row">
-        <button className="error" onClick={proceed}>
+        <Button className="error" onClick={proceed}>
           Да
-        </button>
-        <button onClick={dismiss}>Отмена</button>
+        </Button>
+        <Button onClick={dismiss}>Отмена</Button>
       </div>
     </div>
   );

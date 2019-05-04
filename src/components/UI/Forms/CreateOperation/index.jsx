@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
+import Button from '../../Button';
 import moment from 'moment';
 
 import * as c from '../../../../helpers/constants';
@@ -135,14 +136,14 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
 
           <div className="operation-form_row">
             <div className="buttons">
-              <button
+              <Button
                 className="add"
                 type="submit"
                 disabled={submitting || pristine}
                 tabIndex="5">
                 Добавить
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 onClick={() => {
                   form.reset();
@@ -151,7 +152,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
                 disabled={submitting}
                 tabIndex="6">
                 Отмена
-              </button>
+              </Button>
             </div>
           </div>
         </form>
