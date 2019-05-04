@@ -38,7 +38,7 @@
     "server": "nodenv  ./server/bin --exec nodemon | pino-colada",
     "dev": "run-p server start",
     "prod": "run-p server build",
-    "heroku-postbuild": "prod"
+    "heroku-postbuild": "yarn prod"
   },
   "eslintConfig": {
     "extends": "react-app"
