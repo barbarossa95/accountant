@@ -31,6 +31,13 @@
     background: $red;
   }
 
+  &:hover {
+    .remove,
+    .edit {
+      opacity: 0.5;
+    }
+  }
+
   .time {
     position: relative;
     display: inline-block;
@@ -60,13 +67,6 @@
     }
   }
 
-  &:hover {
-    .remove,
-    .edit {
-      opacity: 0.5;
-    }
-  }
-
   .remove,
   .edit {
     opacity: 0;
@@ -81,6 +81,17 @@
       opacity: 1;
       cursor: pointer;
     }
+  }
+
+  .amount {
+    color: darken($gray, 30);
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .time,
+  .description {
+    color: darken($gray, 50);
   }
 }
 
