@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
+import Button from '../../Button';
+import moment from 'moment';
 
 import * as c from '../../../../helpers/constants';
 import { operationName } from '../../../../helpers/functions';
@@ -19,12 +21,18 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
       type: c.OPERATION_CREDIT,
       amount: '',
       description: null,
+      isCustomDate: false,
+      date: moment().format('YYYY-MM-DD'),
     },
     onSubmit = (value, form) => {
+      const timestamp = value.isCustomDate
+        ? moment(value.date, 'YYYY-MM-DD').valueOf()
+        : moment().valueOf();
+
       submitHandler({
         ...value,
         amount: Number(value.amount),
-        timestamp: new Date().getTime(),
+        timestamp,
       });
       form.reset();
       dismiss && dismiss();
@@ -34,7 +42,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}
-      render={({ handleSubmit, form, submitting, pristine }) => (
+      render={({ handleSubmit, form, values, submitting, pristine }) => (
         <form className="operation-form" onSubmit={handleSubmit}>
           <div className="operation-form_row">
             <h2>Добавить:</h2>
@@ -79,6 +87,33 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
             </Field>
           </div>
           <div className="operation-form_row">
+            <Field name="isCustomDate" component="checkbox">
+              {({ input }) => (
+                <label>
+                  Добавить задним числом:
+                  <input
+                    {...input}
+                    id="isCustomDate"
+                    type="checkbox"
+                    tabIndex="3"
+                  />
+                </label>
+              )}
+            </Field>
+          </div>
+          <div className="operation-form_row">
+            {!values.isCustomDate ? null : (
+              <Field name="date" component="date">
+                {({ input }) => (
+                  <label>
+                    Дата:
+                    <input {...input} id="date" type="date" tabIndex="3" />
+                  </label>
+                )}
+              </Field>
+            )}
+          </div>
+          <div className="operation-form_row">
             <Field
               id="description"
               name="description"
@@ -92,7 +127,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
                     id="description"
                     cols="30"
                     rows="10"
-                    tabIndex="3"
+                    tabIndex="4"
                   />
                 </div>
               )}
@@ -101,23 +136,23 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
 
           <div className="operation-form_row">
             <div className="buttons">
-              <button
+              <Button
                 className="add"
                 type="submit"
                 disabled={submitting || pristine}
-                tabIndex="4">
+                tabIndex="5">
                 Добавить
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 onClick={() => {
                   form.reset();
                   dismiss && dismiss();
                 }}
                 disabled={submitting}
-                tabIndex="5">
+                tabIndex="6">
                 Отмена
-              </button>
+              </Button>
             </div>
           </div>
         </form>
