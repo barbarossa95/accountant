@@ -1,30 +1,30 @@
 const express = require('express'),
   router = express.Router(),
-  operationManager = require('../../models/Operation');
+  Operation = require('../../repositories/OperationRepo'),
+  operationRepo = new Operation();
 
 router
   .get('/', function(req, res) {
-    try {
-      operationManager.list().then(data => res.json(data));
-    } catch (error) {
-      res.sendStatus(500);
-    }
+    operationRepo
+      .get()
+      .then(data => res.json(data))
+      .catch(e => console.error(e));
   })
   .post('/', function(req, res) {
     const data = req.body;
 
-    operationManager
+    operationRepo
       .create(data)
       .then(operation => res.json({ operation }))
       .catch(e => console.error(e));
   })
-  .delete('/:id', function(req, res) {
+  .delete('/:key', function(req, res) {
     try {
-      const id = req.params.id;
+      const { key = null } = req.params;
 
-      operationManager.remove(id).then(() => res.sendStatus(204));
+      operationRepo.remove(key).then(() => res.sendStatus(204));
     } catch (error) {
-      res.sendStatus(500);
+      e => console.error(e);
     }
   });
 
