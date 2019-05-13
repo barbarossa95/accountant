@@ -1,18 +1,16 @@
-const firebase = require("../utilites/firebase");
+const firebase = require('../utilites/firebase');
 
 class Model {
   constructor() {
-    this.ref = "";
+    this.ref = '';
     this.key = null;
     this.data = null;
     this.firebase = firebase;
   }
 
-  create(data) {
+  async create(data) {
     this.data = data;
-    this.firebase.store(this);
-
-    return this.key;
+    return await this.firebase.store(this);
   }
 
   async findByKey(key) {
