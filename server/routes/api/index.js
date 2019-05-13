@@ -1,8 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var operationRouter = require("./operation");
+const operationRouter = require('./operation');
+const authRouter = require('./auth');
 
-router.use("/operation", operationRouter);
+router.use('/operation', operationRouter);
+router.use('/auth', authRouter);
 
 module.exports = router;
