@@ -1,6 +1,6 @@
-const firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/database");
+const firebase = require('firebase/app');
+require('firebase/auth');
+require('firebase/database');
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -8,7 +8,7 @@ const config = {
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
 };
 
 const app = firebase.initializeApp(config),
@@ -18,9 +18,10 @@ const store = async model => {
   const { ref } = model,
     newModelRef = database.ref(ref).push();
 
-  model.key = newModelRef.key;
   try {
     await newModelRef.set(model.data);
+
+    model.key = newModelRef.key;
 
     return model;
   } catch (error) {
@@ -32,7 +33,7 @@ const store = async model => {
 
 const find = async model => {
   const { ref, key } = model,
-    snapshot = await database.ref(`${ref}/${key}`).once("value"),
+    snapshot = await database.ref(`${ref}/${key}`).once('value'),
     data = snapshot.val();
 
   if (!data) return false;
@@ -44,13 +45,13 @@ const find = async model => {
 
 const get = async model => {
   const { ref } = model,
-    snapshot = await database.ref(ref).once("value"),
+    snapshot = await database.ref(ref).once('value'),
     data = snapshot.val();
 
   if (!data) return [];
 
   return Object.entries(data).map(([key, item]) => {
-    return { ...item, id: key };
+    return { ...item, key };
   });
 };
 
@@ -66,5 +67,5 @@ module.exports = {
   store,
   find,
   get,
-  remove
+  remove,
 };
