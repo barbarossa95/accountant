@@ -12,18 +12,17 @@ const config = {
 };
 
 const app = firebase.initializeApp(config),
-  database = app.database();
+  db = app.database();
 
-const store = async model => {
-  const { ref } = model,
-    newModelRef = database.ref(ref).push();
+module.exports.store = async (ref, data) => {
+  const newModelRef = db.ref(ref).push();
 
   try {
-    await newModelRef.set(model.data);
+    const a = await newModelRef.set(data);
 
-    model.key = newModelRef.key;
+    data.key = newModelRef.key;
 
-    return model;
+    return data;
   } catch (error) {
     console.error(error);
 
@@ -31,41 +30,43 @@ const store = async model => {
   }
 };
 
-const find = async model => {
-  const { ref, key } = model,
-    snapshot = await database.ref(`${ref}/${key}`).once('value'),
+module.exports.findByKey = async (refPath, key) => {
+  const ref = db.ref(refPath).child(key),
+    snapshot = await ref.once('value'),
     data = snapshot.val();
 
-  if (!data) return false;
+  if (!data) throw new Error('Error while Firebase request');
 
-  model.data = data;
-
-  return true;
+  return data;
 };
 
-const get = async model => {
-  const { ref } = model,
-    snapshot = await database.ref(ref).once('value'),
-    data = snapshot.val();
+module.exports.findBy = async (refPath, options) => {
+  return await this.get(refPath, options);
+};
 
-  if (!data) return [];
+module.exports.get = async (refPath, options = null) => {
+  let ref = await db.ref(refPath);
 
-  return Object.entries(data).map(([key, item]) => {
+  if (options) {
+    const { prop, type = 'equalTo', val } = options;
+    ref = ref.orderByChild(prop)[type](val);
+  }
+
+  const data = await ref.once('value'),
+    val = data.val();
+
+  if (!val) return [];
+
+  return Object.entries(val).map(([key, item]) => {
     return { ...item, key };
   });
 };
 
-const remove = async model => {
-  const { ref, key } = model;
+module.exports.remove = async (refPath, key) => {
+  await db
+    .ref(refPath)
+    .child(key)
+    .set(null);
 
-  await database.ref(`${ref}/${key}`).set(null);
-
-  return true;
-};
-
-module.exports = {
-  store,
-  find,
-  get,
-  remove,
+  return key;
 };
