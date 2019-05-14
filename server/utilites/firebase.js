@@ -1,6 +1,6 @@
-const firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/database");
+const firebase = require('firebase/app');
+require('firebase/auth');
+require('firebase/database');
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -8,21 +8,21 @@ const config = {
   databaseURL: process.env.FIREBASE_DATABASE_URL,
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
 };
 
 const app = firebase.initializeApp(config),
-  database = app.database();
+  db = app.database();
 
-const store = async model => {
-  const { ref } = model,
-    newModelRef = database.ref(ref).push();
+module.exports.store = async (ref, data) => {
+  const newModelRef = db.ref(ref).push();
 
-  model.key = newModelRef.key;
   try {
-    await newModelRef.set(model.data);
+    const a = await newModelRef.set(data);
 
-    return model;
+    data.key = newModelRef.key;
+
+    return data;
   } catch (error) {
     console.error(error);
 
@@ -30,41 +30,43 @@ const store = async model => {
   }
 };
 
-const find = async model => {
-  const { ref, key } = model,
-    snapshot = await database.ref(`${ref}/${key}`).once("value"),
+module.exports.findByKey = async (refPath, key) => {
+  const ref = db.ref(refPath).child(key),
+    snapshot = await ref.once('value'),
     data = snapshot.val();
 
-  if (!data) return false;
+  if (!data) throw new Error('Error while Firebase request');
 
-  model.data = data;
-
-  return true;
+  return data;
 };
 
-const get = async model => {
-  const { ref } = model,
-    snapshot = await database.ref(ref).once("value"),
-    data = snapshot.val();
+module.exports.findBy = async (refPath, options) => {
+  return await this.get(refPath, options);
+};
 
-  if (!data) return [];
+module.exports.get = async (refPath, options = null) => {
+  let ref = await db.ref(refPath);
 
-  return Object.entries(data).map(([key, item]) => {
-    return { ...item, id: key };
+  if (options) {
+    const { prop, type = 'equalTo', val } = options;
+    ref = ref.orderByChild(prop)[type](val);
+  }
+
+  const data = await ref.once('value'),
+    val = data.val();
+
+  if (!val) return [];
+
+  return Object.entries(val).map(([key, item]) => {
+    return { ...item, key };
   });
 };
 
-const remove = async model => {
-  const { ref, key } = model;
+module.exports.remove = async (refPath, key) => {
+  await db
+    .ref(refPath)
+    .child(key)
+    .set(null);
 
-  await database.ref(`${ref}/${key}`).set(null);
-
-  return true;
-};
-
-module.exports = {
-  store,
-  find,
-  get,
-  remove
+  return key;
 };
