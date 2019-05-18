@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
-import Button from '../../Button';
+import Button from '../UI/Button';
 import moment from 'moment';
 
-import * as c from '../../../../helpers/constants';
-import { operationName } from '../../../../helpers/functions';
+import * as c from '../../helpers/constants';
+import { operationName } from '../../helpers/functions';
 import {
   required,
   mustBeNumber,
   minValue,
   composeValidators,
-} from '../../../../helpers/validation';
+} from '../../helpers/validation';
 
 import './CreateOperation.scss';
 

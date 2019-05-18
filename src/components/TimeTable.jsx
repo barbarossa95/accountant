@@ -4,7 +4,7 @@ import OperationList from '../components/OperationList';
 import OperationWeek from '../components/OperationWeek';
 import * as constants from '../helpers/constants';
 import confirm from './UI/Modal';
-import RemoveOperation from './UI/Forms/RemoveOperation';
+import RemoveOperation from './RemoveOperation';
 
 const TimeTable = ({
   operations,

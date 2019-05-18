@@ -3,7 +3,7 @@ import React from 'react';
 import WalletInfo from './WalletInfo';
 
 import confirm from './UI/Modal';
-import CreateOperation from './UI/Forms/CreateOperation';
+import CreateOperation from './CreateOperation';
 import Button from './UI/Button';
 
 const Header = ({ balance, addOperation }) => {
