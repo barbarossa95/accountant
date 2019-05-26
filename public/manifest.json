@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "БУХГАЛТЕРИЯ",
+  "name": "БУХГАЛТЕРИЯ 2.0",
+  "description": "Простое приложение для фиксирования доходов и расходов",
   "icons": [
     {
       "src": "favicon.ico",
