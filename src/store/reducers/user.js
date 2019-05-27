@@ -18,7 +18,7 @@ const operationHandler = {
   [actionTypes.LOGIN_SUCCESS](state, { token, user }) {
     return {
       ...state,
-      message: null,
+      message: `Добро пожаловать, ${user.name}!`,
       token,
       user,
     };
