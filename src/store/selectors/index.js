@@ -49,4 +49,4 @@ export const getUser = state => state.user.user;
 
 export const getToken = state => state.user.token;
 
-export const getLoginMessage = state => state.user.message;
+export const getLoginMessage = state => state.user.message || '';
