@@ -9,55 +9,57 @@ class UserRepo extends FirebaseRepo {
     this.ref = '/user';
   }
 
-  async findByLogin(login) {
+  async findByLogin(username) {
     const options = {
-        prop: 'login',
+        prop: 'name',
         type: 'equalTo',
-        val: login,
+        val: username,
       },
       users = await this.findBy(options);
 
     return users;
   }
 
-  async register(login, password) {
-    const users = await this.findByLogin(login),
+  async register(username, password) {
+    const users = await this.findByLogin(username),
       user = users[0] || null;
 
-    if (!!user) throw new Error('user already exists');
+    if (!!user) throw new Error('Такой пользователь уже существует');
 
     const passwordHash = await bcrypt.hash(password, 5),
       newUser = await this.create({
-        login,
+        username,
         passwordHash,
       });
 
     return newUser;
   }
 
-  async checkCredentials(login, password) {
-    const users = await this.findByLogin(login),
+  async checkCredentials(username, password) {
+    const users = await this.findByLogin(username),
       user = users[0] || null;
 
-    if (!user) throw new Error("user with this credentials doesn't exists");
+    if (!user) {
+      throw new Error('Пользователя с такими учетными данными не существует');
+    }
 
-    const match = bcrypt.compare(password, user.passwordHash);
+    const match = await bcrypt.compare(password, user.passwordHash);
 
-    if (!match) throw new Error('invalid credentials');
+    if (!match) throw new Error('Неверные учетные данные');
 
-    return await this.createToken(user);
+    return user;
   }
 
   async createToken(user) {
     const signOptions = {
         issuer: 'greshilov.v inc.', // Issuer
-        subject: `user: @${user.login}`, // Subject
+        subject: `user: @${user.name}`, // Subject
         audience: 'http://heroku.com', // Audience
         expiresIn: '24h',
       },
       token = await jwt.sign(
         {
-          login: user.login,
+          username: user.name,
           userId: user.key,
         },
         process.env.EXPRESS_AUTH_SECRET,
