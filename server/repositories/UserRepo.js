@@ -28,7 +28,7 @@ class UserRepo extends FirebaseRepo {
 
     const passwordHash = await bcrypt.hash(password, 5),
       newUser = await this.create({
-        username,
+        name: username,
         passwordHash,
       });
 
