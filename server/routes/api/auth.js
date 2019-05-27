@@ -5,20 +5,22 @@ const express = require('express'),
 
 router
   .post('/register', function(req, res) {
-    const { login, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!login || !password) {
-      res.status(400).json({ message: 'login and password is required' });
+    if (!username || !password) {
+      res.status(400).json({ message: 'username and password is required' });
     }
 
     userRepository
-      .register(login, password)
-      .then(user => userRepository.createToken(user))
+      .register(username, password)
+      .then(userRepository.createToken)
       .then(({ user, token }) =>
         res.json({
           token,
-          login: user.login,
-          key: user.key,
+          user: {
+            name: user.name,
+            key: user.key,
+          },
         })
       )
       .catch(e => {
@@ -27,15 +29,18 @@ router
       });
   })
   .post('/login', function(req, res) {
-    const { login, password } = req.body;
+    const { username, password } = req.body;
 
     userRepository
-      .checkCredentials(login, password)
-      .then(({ user, token }) =>
+      .checkCredentials(username, password)
+      .then(userRepository.createToken)
+      .then(({ token, user }) =>
         res.json({
           token,
-          login: user.login,
-          key: user.key,
+          user: {
+            name: user.name,
+            key: user.key,
+          },
         })
       )
       .catch(e => {
