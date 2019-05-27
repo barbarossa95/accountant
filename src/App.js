@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ConnectedRouter } from 'connected-react-router';
 
-import Login from './containers/Login';
-import Header from './containers/Header';
-import TimeTable from './containers/TimeTable';
+import routes from './routes';
 
-class App extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Login />
-        <Header />
-        <TimeTable />
-      </React.Fragment>
-    );
-  }
-}
+const App = ({ history }) => {
+  return <ConnectedRouter history={history}>{routes}</ConnectedRouter>;
+};
+
+App.propTypes = {
+  history: PropTypes.object,
+};
 
 export default App;
