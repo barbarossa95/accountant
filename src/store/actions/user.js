@@ -1,4 +1,5 @@
 import axios from '../../configs/axios';
+import { push } from 'connected-react-router';
 
 import actionTypes from '../actionTypes/user';
 
@@ -15,6 +16,8 @@ export const login = (username, password) => async dispatch => {
       token,
       user,
     });
+
+    setTimeout(() => dispatch(push('/')), 1500);
 
     return response.data;
   } catch (error) {

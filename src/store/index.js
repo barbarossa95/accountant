@@ -1,21 +1,20 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import { createBrowserHistory } from 'history';
 
-import operations from './reducers/operations';
-import filters from './reducers/filters';
-import user from './reducers/user';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createLogger } from 'redux-logger';
+import { routerMiddleware } from 'connected-react-router';
+import thunk from 'redux-thunk';
+
+import createRootReducer from './reducers';
 
 const logger = createLogger({
   collapsed: true,
 });
 
+export const history = createBrowserHistory();
+
 export const store = createStore(
-  combineReducers({
-    operations,
-    filters,
-    user,
-  }),
-  composeWithDevTools(applyMiddleware(thunk, logger))
+  createRootReducer(history),
+  composeWithDevTools(applyMiddleware(thunk, logger, routerMiddleware(history)))
 );
