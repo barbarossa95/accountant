@@ -79,9 +79,9 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
                     min="0.1"
                     tabIndex="2"
                   />
-                  {meta.error && meta.touched && (
+                  {meta.error && meta.touched ? (
                     <span className="error">{meta.error}</span>
-                  )}
+                  ) : null}
                 </label>
               )}
             </Field>
