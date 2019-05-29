@@ -1,5 +1,4 @@
-const { parseJwt, shouldAuth } = require('../../middleware'),
-  express = require('express'),
+const express = require('express'),
   router = express.Router(),
   User = require('../../repositories/UserRepo'),
   userRepository = new User();
