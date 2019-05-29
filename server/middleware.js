@@ -5,24 +5,36 @@ const parseJwt = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
 
     jwt.verify(token, process.env.EXPRESS_AUTH_SECRET, (error, payload) => {
-      error && console.error(error);
+      if (error) {
+        console.error(error);
+
+        return next();
+      }
 
       if (payload) {
         req.user = payload;
-        next();
+
+        return next();
       }
-      next();
+
+      return next();
     });
   } catch (e) {
-    next();
+    console.error('eRROR');
+    console.error(e);
+
+    return next();
   }
 };
 
 const shouldAuth = (req, res, next) => {
   if (req.user) {
-    next();
+    return next();
   } else {
-    res.status(500).json({ error: 'login is required' });
+    res
+      .status(500)
+      .json({ error: 'login is required' })
+      .end();
   }
 };
 
