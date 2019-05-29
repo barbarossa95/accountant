@@ -20,7 +20,6 @@ const parseJwt = (req, res, next) => {
       return next();
     });
   } catch (e) {
-    console.error('eRROR');
     console.error(e);
 
     return next();
@@ -31,10 +30,7 @@ const shouldAuth = (req, res, next) => {
   if (req.user) {
     return next();
   } else {
-    res
-      .status(500)
-      .json({ error: 'login is required' })
-      .end();
+    res.sendStatus(401).end();
   }
 };
 
