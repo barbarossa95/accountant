@@ -1,9 +1,14 @@
-const express = require('express'),
+const { parseJwt, shouldAuth } = require('../../middleware'),
+  express = require('express'),
   router = express.Router(),
   User = require('../../repositories/UserRepo'),
   userRepository = new User();
 
 router
+  .use(parseJwt)
+  .get('/user', shouldAuth, function(req, res) {
+    return res.json(req.user);
+  })
   .post('/register', function(req, res) {
     const { username, password } = req.body;
 
@@ -39,7 +44,7 @@ router
           token,
           user: {
             name: user.name,
-            key: user.key,
+            id: user.key,
           },
         })
       )
