@@ -59,8 +59,10 @@ class UserRepo extends FirebaseRepo {
       },
       token = await jwt.sign(
         {
-          username: user.name,
-          userId: user.key,
+          user: {
+            name: user.name,
+            id: user.key,
+          },
         },
         process.env.EXPRESS_AUTH_SECRET,
         signOptions
