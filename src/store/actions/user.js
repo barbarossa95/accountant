@@ -1,7 +1,7 @@
 import axios from '../../configs/axios';
 import { push } from 'connected-react-router';
 
-import actionTypes from '../actionTypes/user';
+import * as actionTypes from '../actionTypes/user';
 
 export const login = (username, password) => async dispatch => {
   try {
