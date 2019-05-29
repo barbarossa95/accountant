@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../containers/Header';
 import TimeTable from '../containers/TimeTable';
 
+import { requireAuth } from '../hoc/requireAuth';
 const Home = () => (
   <React.Fragment>
     <Link to="/login">login</Link>
@@ -11,4 +12,4 @@ const Home = () => (
   </React.Fragment>
 );
 
-export default Home;
+export default requireAuth(Home);
