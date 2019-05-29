@@ -5,10 +5,6 @@ const { parseJwt, shouldAuth } = require('../../middleware'),
   userRepository = new User();
 
 router
-  .use(parseJwt)
-  .get('/user', shouldAuth, function(req, res) {
-    return res.json(req.user);
-  })
   .post('/register', function(req, res) {
     const { username, password } = req.body;
 
