@@ -18,7 +18,7 @@ module.exports.store = async (ref, data) => {
   const newModelRef = db.ref(ref).push();
 
   try {
-    const a = await newModelRef.set(data);
+    await newModelRef.set(data);
 
     data.key = newModelRef.key;
 
@@ -45,7 +45,7 @@ module.exports.findBy = async (refPath, options) => {
 };
 
 module.exports.get = async (refPath, options = null) => {
-  let ref = await db.ref(refPath);
+  let ref = db.ref(refPath);
 
   if (options) {
     const { prop, type = 'equalTo', val } = options;
