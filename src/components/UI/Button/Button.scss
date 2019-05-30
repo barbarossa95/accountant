@@ -19,4 +19,18 @@ button {
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   }
+
+  &.success {
+    background: $green;
+    &:hover {
+      background: lighten($color: $green, $amount: 10);
+    }
+  }
+
+  &.error {
+    background: $red;
+    &:hover {
+      background: lighten($color: $red, $amount: 10);
+    }
+  }
 }

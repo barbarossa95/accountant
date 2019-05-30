@@ -137,7 +137,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
           <div className="operation-form_row">
             <div className="buttons">
               <Button
-                className="add"
+                className="success"
                 type="submit"
                 disabled={submitting || pristine}
                 tabIndex="5">

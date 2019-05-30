@@ -9,12 +9,12 @@ import Button from './UI/Button';
 const Header = ({ balance, addOperation, logout }) => {
   return (
     <React.Fragment>
-      <Button className="logout" onClick={logout}>
+      <Button className="logout error" onClick={logout}>
         Выйти
       </Button>
       <WalletInfo balance={balance} />
       <Button
-        className="test"
+        className="success"
         onClick={() => {
           confirm(CreateOperation, {
             submitHandler: addOperation,

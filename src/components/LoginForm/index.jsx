@@ -68,7 +68,7 @@ const LoginForm = ({ login: dispatchLogin, loginMessage, loginLoading }) => {
             ) : null}
             <div className="login-form_row">
               <Button
-                className="login"
+                className="login success"
                 type="submit"
                 disabled={submitting || pristine}
                 tabIndex="3">
