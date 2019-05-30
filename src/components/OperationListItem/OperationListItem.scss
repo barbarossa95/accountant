@@ -44,7 +44,7 @@
     width: intrinsic; /* Safari/WebKit используют нестандартное имя */
     width: -moz-max-content; /* Firefox/Gecko */
     width: -webkit-max-content; /* Chrome */
-    border-bottom: 1px dotted $gray; /* If you want dots under the hoverable text */
+    border-bottom: 1px dotted $grey; /* If you want dots under the hoverable text */
 
     .tooltip {
       visibility: hidden;
@@ -84,14 +84,14 @@
   }
 
   .amount {
-    color: darken($gray, 30);
+    color: darken($grey, 30);
     font-size: 36px;
     font-weight: bold;
   }
 
   .time,
   .description {
-    color: darken($gray, 50);
+    color: darken($grey, 50);
   }
 }
 
