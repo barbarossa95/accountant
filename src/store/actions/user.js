@@ -3,8 +3,14 @@ import { push } from 'connected-react-router';
 
 import * as actionTypes from '../actionTypes/user';
 
+import { PAGE_HOME } from '../../helpers/constants';
+
 export const login = (username, password) => async dispatch => {
   try {
+    dispatch({
+      type: actionTypes.LOGIN_REQUEST,
+    });
+
     const response = await axios.post('/auth/login', {
         username,
         password,
@@ -17,9 +23,7 @@ export const login = (username, password) => async dispatch => {
       user,
     });
 
-    setTimeout(() => dispatch(push('/')), 1500);
-
-    return response.data;
+    dispatch(push(PAGE_HOME));
   } catch (error) {
     dispatch({
       type: actionTypes.LOGIN_FAIL,
@@ -28,4 +32,10 @@ export const login = (username, password) => async dispatch => {
 
     throw error;
   }
+};
+
+export const logout = () => async dispatch => {
+  dispatch({
+    type: actionTypes.LOGOUT,
+  });
 };
