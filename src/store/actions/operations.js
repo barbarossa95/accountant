@@ -1,6 +1,6 @@
 import axios from '../../configs/axios';
 
-import actionTypes from '../actionTypes/operations';
+import * as actionTypes from '../actionTypes/operations';
 import { AUTH_FAIL } from '../actionTypes/user';
 
 export const fetchOperations = () => async (dispatch, getSate) => {
