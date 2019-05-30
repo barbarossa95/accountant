@@ -4,15 +4,15 @@ const initialState = {
   token: localStorage.getItem('token') || '',
   user: null,
   message: null,
+  loading: false,
 };
 
 const operationHandler = {
-  [actionTypes.LOGIN_FAIL](state, { message }) {
+  [actionTypes.LOGIN_REQUEST](state) {
     return {
       ...state,
-      token: null,
-      user: null,
-      message,
+      message: `Загрузка`,
+      loading: true,
     };
   },
   [actionTypes.LOGIN_SUCCESS](state, { token, user }) {
@@ -23,6 +23,16 @@ const operationHandler = {
       message: `Добро пожаловать, ${user.name}!`,
       token,
       user,
+      loading: false,
+    };
+  },
+  [actionTypes.LOGIN_FAIL](state, { message }) {
+    return {
+      ...state,
+      token: null,
+      user: null,
+      message,
+      loading: false,
     };
   },
   [actionTypes.AUTH_FAIL](state) {
@@ -33,6 +43,15 @@ const operationHandler = {
       user: null,
       token: null,
       message: 'Необходима авторизация',
+    };
+  },
+  [actionTypes.LOGOUT](state) {
+    localStorage.setItem('token', '');
+
+    return {
+      ...state,
+      user: null,
+      token: null,
     };
   },
 };
