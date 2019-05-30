@@ -2,6 +2,7 @@ import axios from '../../configs/axios';
 import { push } from 'connected-react-router';
 
 import * as actionTypes from '../actionTypes/user';
+import { CLEAR_OPERATIONS } from '../actionTypes/operations';
 
 import { PAGE_HOME } from '../../helpers/constants';
 
@@ -35,6 +36,9 @@ export const login = (username, password) => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
+  dispatch({
+    type: CLEAR_OPERATIONS,
+  });
   dispatch({
     type: actionTypes.LOGOUT,
   });
