@@ -45,8 +45,8 @@ export const getSortedOperations = createSelector(
   }
 );
 
-export const getUser = state => state.user.user;
+export const getAccessToken = state => state.user.token;
 
-export const getToken = state => state.user.token;
+export const getLoginLoading = state => state.user.loading;
 
 export const getLoginMessage = state => state.user.message || '';
