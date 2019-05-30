@@ -52,6 +52,7 @@ const operationHandler = {
       ...state,
       user: null,
       token: null,
+      message: null,
     };
   },
 };

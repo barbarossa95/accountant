@@ -1,0 +1,46 @@
+@import 'assets/styles/variables.scss';
+
+.login-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  &_row {
+    margin-bottom: 20px;
+    text-align: center;
+
+    &:last-child {
+      margin-top: auto;
+      margin-bottom: 0px;
+    }
+
+    label {
+      display: block;
+    }
+
+    input {
+      display: block;
+    }
+
+    .error {
+      font-size: 12pt;
+      font-weight: bold;
+      color: red;
+    }
+  }
+
+  label,
+  input,
+  select,
+  textarea {
+    font-size: 20px;
+  }
+
+  input,
+  select {
+    border: none;
+    outline: none;
+  }
+}

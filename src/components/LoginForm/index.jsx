@@ -7,6 +7,8 @@ import Loader from '../UI/Loader';
 
 import { required } from '../../helpers/validation';
 
+import './LoginForm.scss';
+
 const LoginForm = ({ login: dispatchLogin, loginMessage, loginLoading }) => {
   const onSubmit = ({ username, password }, form) => {
       dispatchLogin(username, password)
@@ -27,53 +29,56 @@ const LoginForm = ({ login: dispatchLogin, loginMessage, loginLoading }) => {
           <form className="login-form" onSubmit={handleSubmit}>
             {loginLoading ? <Loader className="overlay" /> : null}
 
-            <div className="login-form_row">
-              <h2>Вход:</h2>
-            </div>
-            <div className="login-form_row">
-              <Field name="username" component="input" validate={required}>
-                {({ input }) => (
-                  <label>
-                    Логин:
-                    <input
-                      {...input}
-                      id="login"
-                      tabIndex="1"
-                      placeholder="логин"
-                    />
-                  </label>
-                )}
-              </Field>
-            </div>
-            <div className="login-form_row">
-              <Field name="password" component="input" validate={required}>
-                {({ input, meta }) => (
-                  <label>
-                    Пароль:
-                    <input
-                      {...input}
-                      id="password"
-                      type="password"
-                      placeholder="пароль"
-                      tabIndex="2"
-                    />
-                  </label>
-                )}
-              </Field>
-            </div>
-            {loginMessage ? (
+            <div className="login-form_wrapper">
               <div className="login-form_row">
-                <span className="error">{loginMessage}</span>
+                <img src="./accountant.png" alt="Вход" />
               </div>
-            ) : null}
-            <div className="login-form_row">
-              <Button
-                className="login success"
-                type="submit"
-                disabled={submitting || pristine}
-                tabIndex="3">
-                Войти
-              </Button>
+              <div className="login-form_row">
+                <Field name="username" component="input" validate={required}>
+                  {({ input }) => (
+                    <label>
+                      Логин:
+                      <input
+                        {...input}
+                        id="login"
+                        tabIndex="1"
+                        placeholder="логин"
+                      />
+                    </label>
+                  )}
+                </Field>
+              </div>
+              <div className="login-form_row">
+                <Field name="password" component="input" validate={required}>
+                  {({ input, meta }) => (
+                    <label>
+                      Пароль:
+                      <input
+                        {...input}
+                        id="password"
+                        type="password"
+                        placeholder="пароль"
+                        tabIndex="2"
+                      />
+                    </label>
+                  )}
+                </Field>
+              </div>
+
+              <div className="login-form_row">
+                <Button
+                  className="login success"
+                  type="submit"
+                  disabled={submitting || pristine}
+                  tabIndex="3">
+                  Войти
+                </Button>
+              </div>
+              {loginMessage ? (
+                <div className="login-form_row">
+                  <span className="error">{loginMessage}</span>
+                </div>
+              ) : null}
             </div>
           </form>
         )}
