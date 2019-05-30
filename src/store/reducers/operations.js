@@ -1,4 +1,4 @@
-import actionTypes from '../actionTypes/operations';
+import * as actionTypes from '../actionTypes/operations';
 
 import { calcBalance } from '../../helpers/functions';
 
@@ -8,6 +8,9 @@ const initialState = {
 };
 
 const operationHandler = {
+  [actionTypes.CLEAR_OPERATIONS](state) {
+    return initialState;
+  },
   [actionTypes.FETCH_OPERATIONS](state, { operations }) {
     const oldBalance = state.balance,
       balance = calcBalance(operations, oldBalance);
