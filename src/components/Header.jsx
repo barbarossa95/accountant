@@ -6,9 +6,12 @@ import confirm from './UI/Modal';
 import CreateOperation from './CreateOperation';
 import Button from './UI/Button';
 
-const Header = ({ balance, addOperation }) => {
+const Header = ({ balance, addOperation, logout }) => {
   return (
     <React.Fragment>
+      <Button className="logout" onClick={logout}>
+        Выйти
+      </Button>
       <WalletInfo balance={balance} />
       <Button
         className="test"
@@ -17,7 +20,7 @@ const Header = ({ balance, addOperation }) => {
             submitHandler: addOperation,
           });
         }}>
-        add
+        Добавить
       </Button>
     </React.Fragment>
   );
