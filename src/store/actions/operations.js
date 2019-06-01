@@ -13,6 +13,10 @@ export const fetchOperations = () => async (dispatch, getSate) => {
       });
 
     dispatch({
+      type: actionTypes.CLEAR_OPERATIONS,
+      operations: res.data,
+    });
+    dispatch({
       type: actionTypes.FETCH_OPERATIONS,
       operations: res.data,
     });
