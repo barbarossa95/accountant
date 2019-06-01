@@ -21,6 +21,7 @@ export const fetchOperations = () => async (dispatch, getSate) => {
       console.error(e);
     }
     if (e.request.status === 401) {
+      localStorage.setItem('token', '');
       dispatch({
         type: AUTH_FAIL,
       });
@@ -46,6 +47,7 @@ export const addOperation = operation => async (dispatch, getSate) => {
       console.error(e);
     }
     if (e.request.status === 401) {
+      localStorage.setItem('token', '');
       dispatch({
         type: AUTH_FAIL,
       });
@@ -74,6 +76,7 @@ export const removeOperation = operation => async (dispatch, getSate) => {
       console.error(e);
     }
     if (e.request.status === 401) {
+      localStorage.setItem('token', '');
       dispatch({
         type: AUTH_FAIL,
       });

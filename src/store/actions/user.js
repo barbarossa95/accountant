@@ -18,6 +18,8 @@ export const login = (username, password) => async dispatch => {
       }),
       { token, user } = response.data;
 
+    localStorage.setItem('token', token);
+
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
       token,
@@ -36,6 +38,8 @@ export const login = (username, password) => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
+  localStorage.setItem('token', '');
+
   dispatch({
     type: CLEAR_OPERATIONS,
   });

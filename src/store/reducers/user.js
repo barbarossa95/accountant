@@ -16,8 +16,6 @@ const operationHandler = {
     };
   },
   [actionTypes.LOGIN_SUCCESS](state, { token, user }) {
-    localStorage.setItem('token', token);
-
     return {
       ...state,
       message: `Добро пожаловать, ${user.name}!`,
@@ -36,8 +34,6 @@ const operationHandler = {
     };
   },
   [actionTypes.AUTH_FAIL](state) {
-    localStorage.setItem('token', '');
-
     return {
       ...state,
       user: null,
@@ -46,8 +42,6 @@ const operationHandler = {
     };
   },
   [actionTypes.LOGOUT](state) {
-    localStorage.setItem('token', '');
-
     return {
       ...state,
       user: null,
