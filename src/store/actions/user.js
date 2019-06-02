@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import * as actionTypes from '../actionTypes/user';
 import { CLEAR_OPERATIONS } from '../actionTypes/operations';
 
-import { PAGE_HOME } from '../../helpers/constants';
+import { PAGE_HOME, PAGE_LOGIN } from '../../helpers/constants';
 
 export const login = (username, password) => async dispatch => {
   try {
@@ -46,4 +46,24 @@ export const logout = () => async dispatch => {
   dispatch({
     type: actionTypes.LOGOUT,
   });
+  dispatch(push(PAGE_LOGIN));
+};
+
+export const checkAuth = () => async (dispatch, getState) => {
+  try {
+    const token = getState().user.token || '',
+      response = await axios.get('/auth', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      { user } = response.data;
+
+    dispatch({
+      type: actionTypes.FETCH_USER,
+      user,
+    });
+  } catch (error) {
+    logout()(dispatch);
+  }
 };
