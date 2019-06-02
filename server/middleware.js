@@ -13,6 +13,7 @@ const parseJwt = (req, res, next) => {
 
       if (payload) {
         req.user = payload;
+        req.token = token;
 
         return next();
       }
