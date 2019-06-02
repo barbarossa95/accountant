@@ -49,6 +49,12 @@ const operationHandler = {
       message: null,
     };
   },
+  [actionTypes.FETCH_USER](state, { user }) {
+    return {
+      ...state,
+      user,
+    };
+  },
 };
 
 export default (state = initialState, action) =>
