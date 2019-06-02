@@ -8,7 +8,7 @@ button {
   font-weight: bold;
   border: 1px solid $grey;
   border-radius: 10px;
-  margin: 5px;
+  padding: 5px 10px;
 
   &[disabled] {
     cursor: not-allowed;
