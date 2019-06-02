@@ -25,4 +25,47 @@ nav {
       }
     }
   }
+
+  @media only screen and (max-width: 425px) {
+    .logout,
+    .add-operation {
+      outline: none;
+      display: block;
+      height: 45px;
+      width: 45px;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 0;
+    }
+
+    .logout,
+    .add-operation {
+      display: block;
+      text-indent: -9999px;
+      text-transform: uppercase;
+
+      &::before,
+      &::before {
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+        height: 45px;
+        width: 45px;
+        content: '';
+      }
+    }
+
+    .add-operation::before {
+      background: url(./plus-icon.png) no-repeat;
+      background-position: 4px 4px;
+      background-size: 35px;
+    }
+
+    .logout::before {
+      background: url(./logout-icon.png) no-repeat;
+      background-position: 8px 7px;
+      background-size: 30px;
+    }
+  }
 }

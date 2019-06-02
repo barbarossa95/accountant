@@ -20,7 +20,7 @@ const MenuBar = ({ username, balance, addOperation, logout }) => {
         </li>
         <li>
           <Button
-            className="success"
+            className="success add-operation"
             onClick={() => {
               confirm(CreateOperation, {
                 submitHandler: addOperation,
@@ -30,7 +30,7 @@ const MenuBar = ({ username, balance, addOperation, logout }) => {
           </Button>
         </li>
         <li>
-          <Button className="logout error" onClick={logout}>
+          <Button className="error logout" onClick={logout}>
             Выйти
           </Button>
         </li>
