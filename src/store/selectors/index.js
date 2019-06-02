@@ -45,8 +45,31 @@ export const getSortedOperations = createSelector(
   }
 );
 
-export const getAccessToken = state => state.user.token;
+export const getBalance = state => state.operations.balance;
 
-export const getLoginLoading = state => state.user.loading;
+export const getUserState = state => state.user;
 
-export const getLoginMessage = state => state.user.message || '';
+export const getAccessToken = createSelector(
+  [getUserState],
+  state => state.token
+);
+
+export const getLoginLoading = createSelector(
+  [getUserState],
+  state => state.loading
+);
+
+export const getLoginMessage = createSelector(
+  [getUserState],
+  state => state.message || ''
+);
+
+export const getUser = createSelector(
+  [getUserState],
+  state => (!state.user ? null : state.user)
+);
+
+export const getUserName = createSelector(
+  [getUser],
+  user => (!user ? null : user.name)
+);
