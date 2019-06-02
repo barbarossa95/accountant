@@ -1,33 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 
-import { getAccessToken } from '../store/selectors';
-
-import { PAGE_LOGIN } from '../helpers/constants';
+import { checkAuth } from '../store/actions/user';
 
 export function requireAuth(WrappedComponent) {
   class WithAuthWrapper extends Component {
     componentDidMount() {
-      this.chechAuth();
+      this.props.checkAuth();
     }
 
     componentDidUpdate(nextProps) {
-      this.chechAuth();
-    }
-
-    chechAuth() {
-      const { token } = this.props;
-
-      if (!token) {
-        this.redirectTo(PAGE_LOGIN);
-      }
-    }
-
-    redirectTo(page) {
-      const { push } = this.props;
-
-      push(page);
+      this.props.checkAuth();
     }
 
     render() {
@@ -36,9 +19,7 @@ export function requireAuth(WrappedComponent) {
   }
 
   return connect(
-    state => ({
-      token: getAccessToken(state),
-    }),
-    { push }
+    null,
+    { checkAuth }
   )(WithAuthWrapper);
 }
