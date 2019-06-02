@@ -4,10 +4,10 @@ import TimeTable from '../containers/TimeTable';
 
 import { requireAuth } from '../hoc/requireAuth';
 const Home = () => (
-  <React.Fragment>
+  <main className="home">
     <TimeTable />
     <Menu />
-  </React.Fragment>
+  </main>
 );
 
 export default requireAuth(Home);

@@ -1,6 +1,7 @@
 .operation-week {
   display: flex;
   flex-direction: row;
+  // overflow-y: hidden;
 
   @media only screen and (max-width: 768px) {
     overflow-x: scroll;
