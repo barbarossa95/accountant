@@ -1,17 +1,19 @@
 .operation-week {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 118px);
 
   @media only screen and (max-width: 768px) {
     overflow-x: scroll;
     width: min-content;
   }
 
+  &__scrollbar {
+    height: calc(100vh - 48px) !important;
+  }
+
   &__item {
     margin-right: 10px;
     min-width: 300px;
-    height: calc(100vh - 138px);
 
     &-label {
       background: #ffce23;
@@ -22,6 +24,14 @@
       border-radius: 10px 10px 0 0;
       width: 280px;
       display: inline-block;
+    }
+
+    @media only screen and (max-width: 425px) {
+      width: calc(100vw - 10px);
+
+      &-label {
+        width: calc(100vw - 21px);
+      }
     }
   }
 }

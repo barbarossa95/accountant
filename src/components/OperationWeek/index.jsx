@@ -19,7 +19,7 @@ const OperationWeek = ({ operations, handlers }) => {
             <span className="operation-week__item-label">
               {`${weekBorders.start} - ${weekBorders.end}`}
             </span>
-            <Scrollbars>
+            <Scrollbars className="operation-week__scrollbar">
               <OperationList
                 operations={operationsInWeek}
                 handlers={handlers}
