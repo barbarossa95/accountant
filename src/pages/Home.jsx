@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../containers/Header';
+import Menu from '../containers/Menu';
 import TimeTable from '../containers/TimeTable';
 
 import { requireAuth } from '../hoc/requireAuth';
 const Home = () => (
   <React.Fragment>
-    <Header />
     <TimeTable />
+    <Menu />
   </React.Fragment>
 );
 
