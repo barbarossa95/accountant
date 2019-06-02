@@ -1,7 +1,8 @@
 const express = require('express'),
   router = express.Router(),
   User = require('../../repositories/UserRepo'),
-  userRepository = new User();
+  userRepository = new User(),
+  { parseJwt, shouldAuth } = require('../../middleware');
 
 router
   .post('/register', function(req, res) {
@@ -47,6 +48,11 @@ router
         console.error(e);
         res.status(403).json({ message: e.message });
       });
+  })
+  .get('/', parseJwt, shouldAuth, function(req, res) {
+    res.json({
+      user: req.user.user,
+    });
   });
 
 module.exports = router;
