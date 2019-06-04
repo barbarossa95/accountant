@@ -2,11 +2,15 @@
 
 nav {
   position: fixed;
-  bottom: 0;
   background: rgba(#000000, 0.7);
+  top: calc(100vh - 65px);
+  bottom: 0;
   left: 0;
   right: 0;
   padding: 10px;
+  @media only screen and (max-width: 425px) {
+    width: calc(100vw - 20px);
+  }
 
   ul {
     width: 100%;
@@ -21,6 +25,9 @@ nav {
       display: block;
 
       &.info {
+        @media only screen and (max-width: 425px) {
+          flex-basis: 50%;
+        }
         color: #ffffff;
       }
     }
