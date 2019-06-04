@@ -18,7 +18,7 @@ const MenuBar = ({ username, balance, addOperation, logout }) => {
           &nbsp;
           <strong>{moneyFormat(balance)}</strong>
         </li>
-        <li>
+        <li className="controls">
           <Button
             className="success add-operation"
             onClick={() => {
@@ -28,8 +28,6 @@ const MenuBar = ({ username, balance, addOperation, logout }) => {
             }}>
             Добавить
           </Button>
-        </li>
-        <li>
           <Button className="error logout" onClick={logout}>
             Выйти
           </Button>

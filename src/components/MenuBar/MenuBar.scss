@@ -30,6 +30,15 @@ nav {
         }
         color: #ffffff;
       }
+
+      &.controls {
+        display: flex;
+        flex-flow: row wrap;
+
+        button:first-child {
+          margin-right: 10px;
+        }
+      }
     }
   }
 
