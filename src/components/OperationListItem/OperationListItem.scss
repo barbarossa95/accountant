@@ -9,6 +9,7 @@
   border-radius: 3px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   animation: slide-up 0.4s ease;
+  position: relative;
 
   :last-child {
     margin-bottom: 0;
@@ -17,10 +18,15 @@
   .item_row {
     display: inline-flex;
     flex-wrap: wrap;
-
-    &.controls {
-      justify-content: flex-end;
+    margin-bottom: 10px;
+    &:last-child {
+      margin: 0px;
     }
+  }
+  .item_controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 
   &.debit {
@@ -69,8 +75,14 @@
 
   .remove,
   .edit {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    appearance: none;
     opacity: 0;
     user-select: none;
+    box-shadow: none;
+    outline: none;
 
     @media only screen and (max-width: 768px) {
       opacity: 0.5;
@@ -80,6 +92,9 @@
     &:active {
       opacity: 1;
       cursor: pointer;
+      background-color: transparent;
+      box-shadow: none;
+      outline: none;
     }
   }
 
