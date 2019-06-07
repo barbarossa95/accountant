@@ -1,20 +1,20 @@
 const express = require('express'),
-  router = express.Router(),
-  User = require('../../repositories/UserRepo'),
-  userRepository = new User(),
-  { parseJwt, shouldAuth } = require('../../middleware');
+  { parseJwt, shouldAuth } = require('../../middleware'),
+  UserModel = require('../../models/user'),
+  router = express.Router();
 
 router
-  .post('/register', function(req, res) {
+  .post('/register', (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      res.status(400).json({ message: 'username and password is required' });
+      res
+        .status(400)
+        .json({ message: 'Имя пользователя и пароль обязательные поля' });
     }
 
-    userRepository
-      .register(username, password)
-      .then(userRepository.createToken)
+    UserModel.register(username, password)
+      .then(UserModel.createToken)
       .then(({ user, token }) =>
         res.json({
           token,
@@ -29,19 +29,21 @@ router
         res.status(400).json({ message: e.message });
       });
   })
-  .post('/login', function(req, res) {
+  .post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    userRepository
-      .checkCredentials(username, password)
-      .then(userRepository.createToken)
+    if (!username || !password) {
+      res
+        .status(400)
+        .json({ message: 'Имя пользователя и пароль обязательные поля' });
+    }
+
+    UserModel.checkCredentials(username, password)
+      .then(UserModel.createToken)
       .then(({ token, user }) =>
         res.json({
           token,
-          user: {
-            name: user.name,
-            id: user.key,
-          },
+          user,
         })
       )
       .catch(e => {
@@ -49,9 +51,9 @@ router
         res.status(403).json({ message: e.message });
       });
   })
-  .get('/', parseJwt, shouldAuth, function(req, res) {
+  .get('/', parseJwt, shouldAuth, (req, res) => {
     res.json({
-      user: req.user.user,
+      user: req.payload.user,
     });
   });
 
