@@ -12,7 +12,7 @@ exports.parseJwt = (req, res, next) => {
       }
 
       if (payload) {
-        req.user = payload;
+        req.payload = payload;
         req.token = token;
 
         return next();
