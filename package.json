@@ -13,6 +13,7 @@
     "firebase": "^5.9.4",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "mongoose": "^5.5.13",
     "node-env-run": "^3.0.2",
     "node-sass": "^4.11.0",
     "nodemon": "^1.19.0",
