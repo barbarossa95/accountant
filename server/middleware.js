@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const parseJwt = (req, res, next) => {
+exports.parseJwt = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
 
@@ -27,15 +27,10 @@ const parseJwt = (req, res, next) => {
   }
 };
 
-const shouldAuth = (req, res, next) => {
+exports.shouldAuth = (req, res, next) => {
   if (req.user) {
     return next();
   } else {
     res.sendStatus(401).end();
   }
-};
-
-module.exports = {
-  parseJwt,
-  shouldAuth,
 };
