@@ -16,13 +16,13 @@ userSchema.statics = {
     return await this.findOne({ name: username });
   },
   register: async function(username, password) {
-    const user = await this.model(MODEL_NAME).findByLogin(username);
+    const user = await this.findByLogin(username);
 
     if (!!user) throw new Error('Такой пользователь уже существует');
 
     const passwordHash = await bcrypt.hash(password, 5);
 
-    return await this.model(MODEL_NAME).create({
+    return await this.create({
       name: username,
       passwordHash,
     });
@@ -36,7 +36,7 @@ userSchema.statics = {
       },
       token = await jwt.sign(
         {
-          user, // todo to object
+          user,
         },
         process.env.EXPRESS_AUTH_SECRET,
         signOptions
@@ -46,6 +46,19 @@ userSchema.statics = {
       token,
       user,
     };
+  },
+  checkCredentials: async function(username, password) {
+    const user = await this.findOne({ name: username });
+
+    if (!user) {
+      throw new Error('Пользователя с такими учетными данными не существует');
+    }
+
+    const match = await bcrypt.compare(password, user.passwordHash);
+
+    if (!match) throw new Error('Неверные учетные данные');
+
+    return user;
   },
 };
 
