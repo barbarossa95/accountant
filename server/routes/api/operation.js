@@ -1,21 +1,22 @@
-const { parseJwt, shouldAuth } = require('../../middleware'),
-  express = require('express'),
-  router = express.Router(),
+const { Router } = require('express'),
+  { parseJwt, shouldAuth } = require('../../middleware'),
+  OperationModel = require('../../models/operation'),
   Operation = require('../../repositories/OperationRepo'),
-  operationRepo = new Operation();
+  operationRepo = new Operation(),
+  router = Router();
 
 router
   .use(parseJwt, shouldAuth)
-  .get('/', function(req, res) {
-    operationRepo
-      .get()
-      .then(data => res.json(data))
+  .get('/', (req, res) => {
+    OperationModel.find({})
+      .exec()
+      .then(operation => res.json(operation))
       .catch(e => {
         console.error(e);
         res.sendStatus(500);
       });
   })
-  .post('/', function(req, res) {
+  .post('/', (req, res) => {
     const data = req.body;
 
     operationRepo
@@ -26,7 +27,7 @@ router
         res.sendStatus(500);
       });
   })
-  .delete('/:key', function(req, res) {
+  .delete('/:key', (req, res) => {
     const { key = null } = req.params;
     operationRepo
       .remove(key)
