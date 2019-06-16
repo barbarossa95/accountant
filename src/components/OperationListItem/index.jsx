@@ -26,10 +26,14 @@ const OperationListItem = ({
           <span className="description">{description}</span>
         </div>
       ) : null}
-      <div className="item_row controls">
-        <small onClick={() => removeHandler(operation)} className="remove">
-          удалить
-        </small>
+      <div className="item_controls">
+        <button
+          type="button"
+          onClick={() => removeHandler(operation)}
+          className="remove"
+          aria-label="Remove">
+          <span aria-hidden="true">×</span>
+        </button>
       </div>
       <div className="item_row">
         <small className="time">

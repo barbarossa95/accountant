@@ -13,4 +13,8 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 
 app.use('/api', apiRouter);
 
+app.use(function(req, res, next) {
+  res.redirect('/');
+});
+
 module.exports = app;
