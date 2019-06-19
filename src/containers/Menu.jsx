@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { logout } from '../store/actions/user';
+import { fetchUser, logout } from '../store/actions/user';
 import { addOperation } from '../store/actions/operations';
 
 import { getUserName, getBalance } from '../store/selectors';
@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   balance: getBalance(state),
 });
 
-const mapDispatchToProps = { logout, addOperation };
+const mapDispatchToProps = { fetchUser, logout, addOperation };
 
 export default connect(
   mapStateToProps,
