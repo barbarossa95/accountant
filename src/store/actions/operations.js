@@ -22,15 +22,15 @@ export const fetchOperations = () => async (dispatch, getSate) => {
       operations: res.data,
     });
   } catch (e) {
-    if (e.request.status === 401) logout()(dispatch);
+    if (e.request && e.request.status === 401) logout()(dispatch);
     console.error(e);
   }
 };
 
-export const addOperation = operation => async (dispatch, getSate) => {
+export const addOperation = newOperation => async (dispatch, getSate) => {
   try {
     const token = getSate().user.token || '';
-    await axios.post('/operation', operation, {
+    const { data: operation } = await axios.post('/operation', newOperation, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -41,7 +41,7 @@ export const addOperation = operation => async (dispatch, getSate) => {
       operation,
     });
   } catch (e) {
-    if (e.request.status === 401) logout()(dispatch);
+    if (e.request && e.request.status === 401) logout()(dispatch);
     console.error(e);
   }
 };
@@ -63,7 +63,7 @@ export const removeOperation = operation => async (dispatch, getSate) => {
 
     return true;
   } catch (e) {
-    if (e.request.status === 401) logout()(dispatch);
+    if (e.request && e.request.status === 401) logout()(dispatch);
     console.error(e);
     return false;
   }

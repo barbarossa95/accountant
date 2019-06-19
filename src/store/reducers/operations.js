@@ -35,7 +35,7 @@ const operationHandler = {
 
   [actionTypes.REMOVE_OPERATION](state, { operation }) {
     const operations = state.operations.filter(
-      item => item.key !== operation.key
+      item => item._id !== operation._id
     );
 
     return {
