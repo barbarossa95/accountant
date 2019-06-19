@@ -1,8 +1,6 @@
 const { Router } = require('express'),
   { parseJwt, shouldAuth } = require('../../middleware'),
   OperationModel = require('../../models/operation'),
-  Operation = require('../../repositories/OperationRepo'),
-  operationRepo = new Operation(),
   router = Router();
 
 router
