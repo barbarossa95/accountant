@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import Home from '../pages/Home';
-import Login from '../containers/Login';
+import Login from '../pages/Login';
 
 const routes = (
   <Switch>
