@@ -71,5 +71,10 @@ export const getUser = createSelector(
 
 export const getUserName = createSelector(
   [getUser],
-  user => (!user ? null : user.name)
+  user => (!user ? 'username' : user.name)
+);
+
+export const getUserToken = createSelector(
+  [getUserState],
+  state => (!state.token ? null : state.token)
 );
