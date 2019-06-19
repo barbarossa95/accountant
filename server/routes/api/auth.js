@@ -1,6 +1,7 @@
 const express = require('express'),
   { parseJwt, shouldAuth } = require('../../middleware'),
   UserModel = require('../../models/user'),
+  { RESTRICTED_FIELDS } = UserModel,
   router = express.Router();
 
 router
@@ -18,10 +19,7 @@ router
       .then(({ user, token }) =>
         res.json({
           token,
-          user: {
-            name: user.name,
-            key: user.key,
-          },
+          user: user.omit(RESTRICTED_FIELDS),
         })
       )
       .catch(e => {
@@ -43,7 +41,7 @@ router
       .then(({ token, user }) =>
         res.json({
           token,
-          user,
+          user: user.omit(RESTRICTED_FIELDS),
         })
       )
       .catch(e => {
@@ -51,10 +49,6 @@ router
         res.status(403).json({ message: e.message });
       });
   })
-  .get('/', parseJwt, shouldAuth, (req, res) => {
-    res.json({
-      user: req.payload.user,
-    });
-  });
+  .get('/', parseJwt, shouldAuth, (req, res) => res.json(req.payload));
 
 module.exports = router;
