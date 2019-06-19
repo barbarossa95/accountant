@@ -27,7 +27,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
     onSubmit = (value, form) => {
       const timestamp = value.isCustomDate
         ? moment(value.date, 'YYYY-MM-DD').valueOf()
-        : moment().valueOf();
+        : moment.utc().valueOf();
 
       submitHandler({
         ...value,
