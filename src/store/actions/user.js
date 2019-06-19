@@ -49,10 +49,13 @@ export const logout = () => async dispatch => {
   dispatch(push(PAGE_LOGIN));
 };
 
-export const checkAuth = () => async (dispatch, getState) => {
+export const fetchUser = () => async (dispatch, getState) => {
   try {
-    const token = getState().user.token || '',
-      response = await axios.get('/auth', {
+    const token = getState().user.token || '';
+
+    if (!token) logout()(dispatch);
+
+    const response = await axios.get('/auth', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
