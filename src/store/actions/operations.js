@@ -1,7 +1,8 @@
 import axios from '../../configs/axios';
 
 import * as actionTypes from '../actionTypes/operations';
-import { AUTH_FAIL } from '../actionTypes/user';
+
+import { logout } from '../actions/user';
 
 export const fetchOperations = () => async (dispatch, getSate) => {
   try {
@@ -21,15 +22,8 @@ export const fetchOperations = () => async (dispatch, getSate) => {
       operations: res.data,
     });
   } catch (e) {
-    if (e.request.status !== 200) {
-      console.error(e);
-    }
-    if (e.request.status === 401) {
-      localStorage.setItem('token', '');
-      dispatch({
-        type: AUTH_FAIL,
-      });
-    }
+    if (e.request.status === 401) logout()(dispatch);
+    console.error(e);
   }
 };
 
@@ -47,15 +41,8 @@ export const addOperation = operation => async (dispatch, getSate) => {
       operation,
     });
   } catch (e) {
-    if (e.request.status !== 200) {
-      console.error(e);
-    }
-    if (e.request.status === 401) {
-      localStorage.setItem('token', '');
-      dispatch({
-        type: AUTH_FAIL,
-      });
-    }
+    if (e.request.status === 401) logout()(dispatch);
+    console.error(e);
   }
 };
 
@@ -63,7 +50,7 @@ export const removeOperation = operation => async (dispatch, getSate) => {
   try {
     const token = getSate().user.token || '';
 
-    await axios.delete(`/operation/${operation.key}`, {
+    await axios.delete(`/operation/${operation._id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -76,16 +63,8 @@ export const removeOperation = operation => async (dispatch, getSate) => {
 
     return true;
   } catch (e) {
-    if (e.request.status !== 200) {
-      console.error(e);
-    }
-    if (e.request.status === 401) {
-      localStorage.setItem('token', '');
-      dispatch({
-        type: AUTH_FAIL,
-      });
-    }
-
+    if (e.request.status === 401) logout()(dispatch);
+    console.error(e);
     return false;
   }
 };
