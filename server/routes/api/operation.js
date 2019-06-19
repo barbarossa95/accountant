@@ -17,20 +17,24 @@ router
       });
   })
   .post('/', (req, res) => {
-    const data = req.body;
+    const { amount, description, timestamp, type } = req.body;
 
-    operationRepo
-      .create(data)
-      .then(operation => res.json({ operation }))
+    OperationModel.create({
+      amount,
+      description,
+      timestamp,
+      type,
+    })
+      .then(operation => res.json(operation))
       .catch(e => {
         console.error(e);
         res.sendStatus(500);
       });
   })
-  .delete('/:key', (req, res) => {
-    const { key = null } = req.params;
+  .delete('/:id', (req, res) => {
+    const { id = null } = req.params;
     operationRepo
-      .remove(key)
+      .remove(id)
       .then(() => res.sendStatus(204))
       .catch(e => {
         console.error(e);
