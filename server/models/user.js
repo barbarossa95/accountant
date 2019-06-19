@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose'),
   bcrypt = require('bcrypt'),
   jwt = require('jsonwebtoken'),
+  omit = require('omit'),
   userSchema = new Schema({
     name: {
       type: String,
@@ -11,7 +12,14 @@ const { Schema, model } = require('mongoose'),
   }),
   MODEL_NAME = 'User';
 
+userSchema.methods = {
+  omit: function(fields) {
+    return omit(fields)(this.toObject());
+  },
+};
+
 userSchema.statics = {
+  RESTRICTED_FIELDS: ['passwordHash'],
   findByLogin: async function(username) {
     return await this.findOne({ name: username });
   },
@@ -36,7 +44,10 @@ userSchema.statics = {
       },
       token = await jwt.sign(
         {
-          user,
+          user: {
+            _id: user._id,
+            name: user.name,
+          },
         },
         process.env.EXPRESS_AUTH_SECRET,
         signOptions
