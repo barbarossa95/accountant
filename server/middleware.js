@@ -28,7 +28,7 @@ exports.parseJwt = (req, res, next) => {
 };
 
 exports.shouldAuth = (req, res, next) => {
-  if (req.user) {
+  if (req.token) {
     return next();
   } else {
     res.sendStatus(401).end();
