@@ -31,11 +31,10 @@ router
         res.sendStatus(500);
       });
   })
-  .delete('/:id', (req, res) => {
-    const { id = null } = req.params;
-    operationRepo
-      .remove(id)
-      .then(() => res.sendStatus(204))
+  .delete('/:_id', (req, res) => {
+    const { _id = null } = req.params;
+    OperationModel.deleteOne({ _id })
+      .then(({ ok }) => (ok ? res.sendStatus(204) : res.sendStatus(500)))
       .catch(e => {
         console.error(e);
         res.sendStatus(500);
