@@ -5,6 +5,7 @@ import { calcBalance } from '../../helpers/functions';
 const initialState = {
   balance: 0,
   operations: [],
+  isAdding: false,
 };
 
 const operationHandler = {
@@ -22,7 +23,14 @@ const operationHandler = {
     };
   },
 
-  [actionTypes.ADD_OPERATION](state, { operation }) {
+  [actionTypes.ADDING_OPERATION](state) {
+    return {
+      ...state,
+      isAdding: true,
+    };
+  },
+
+  [actionTypes.ADDED_OPERATION](state, { operation }) {
     const operations = [...state.operations, operation],
       { balance } = state;
 
@@ -30,10 +38,30 @@ const operationHandler = {
       ...state,
       operations,
       balance: calcBalance([operation], balance),
+      isAdding: false,
     };
   },
 
-  [actionTypes.REMOVE_OPERATION](state, { operation }) {
+  [actionTypes.ADD_OPERATION_FAIL](state) {
+    return {
+      ...state,
+      isAdding: false,
+    };
+  },
+
+  [actionTypes.REMOVING_OPERATION](state, { operation }) {
+    const operations = state.operations.map(item => {
+      if (item._id !== operation._id) return item;
+      return { ...item, removing: true };
+    });
+
+    return {
+      ...state,
+      operations,
+    };
+  },
+
+  [actionTypes.REMOVED_OPERATION](state, { operation }) {
     const operations = state.operations.filter(
       item => item._id !== operation._id
     );
@@ -42,6 +70,18 @@ const operationHandler = {
       ...state,
       operations,
       balance: calcBalance(operations, 0),
+    };
+  },
+
+  [actionTypes.REMOVE_OPERATION_FAIL](state, { operation }) {
+    const operations = state.operations.map(item => {
+      if (item._id !== operation._id) return item;
+      return { ...item, removing: false };
+    });
+
+    return {
+      ...state,
+      operations,
     };
   },
 };

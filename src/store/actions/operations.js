@@ -29,6 +29,9 @@ export const fetchOperations = () => async (dispatch, getSate) => {
 
 export const addOperation = newOperation => async (dispatch, getSate) => {
   try {
+    dispatch({
+      type: actionTypes.ADDING_OPERATION,
+    });
     const token = getSate().user.token || '';
     const { data: operation } = await axios.post('/operation', newOperation, {
       headers: {
@@ -37,10 +40,13 @@ export const addOperation = newOperation => async (dispatch, getSate) => {
     });
 
     dispatch({
-      type: actionTypes.ADD_OPERATION,
+      type: actionTypes.ADDED_OPERATION,
       operation,
     });
   } catch (e) {
+    dispatch({
+      type: actionTypes.ADD_OPERATION_FAIL,
+    });
     if (e.request && e.request.status === 401) logout()(dispatch);
     console.error(e);
   }
@@ -48,6 +54,11 @@ export const addOperation = newOperation => async (dispatch, getSate) => {
 
 export const removeOperation = operation => async (dispatch, getSate) => {
   try {
+    dispatch({
+      type: actionTypes.REMOVING_OPERATION,
+      operation,
+    });
+
     const token = getSate().user.token || '';
 
     await axios.delete(`/operation/${operation._id}`, {
@@ -57,12 +68,16 @@ export const removeOperation = operation => async (dispatch, getSate) => {
     });
 
     dispatch({
-      type: actionTypes.REMOVE_OPERATION,
+      type: actionTypes.REMOVED_OPERATION,
       operation,
     });
 
     return true;
   } catch (e) {
+    dispatch({
+      type: actionTypes.REMOVE_OPERATION_FAIL,
+      operation,
+    });
     if (e.request && e.request.status === 401) logout()(dispatch);
     console.error(e);
     return false;
