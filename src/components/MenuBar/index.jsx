@@ -9,7 +9,14 @@ import { moneyFormat } from '../../helpers/functions';
 
 import './MenuBar.scss';
 
-const MenuBar = ({ username, balance, addOperation, logout, fetchUser }) => {
+const MenuBar = ({
+  username,
+  balance,
+  addOperation,
+  isAddingOperation,
+  logout,
+  fetchUser,
+}) => {
   useEffect(() => {
     fetchUser();
   }, fetchUser);
@@ -28,6 +35,7 @@ const MenuBar = ({ username, balance, addOperation, logout, fetchUser }) => {
             onClick={() => {
               confirm(CreateOperation, {
                 submitHandler: addOperation,
+                loading: isAddingOperation,
               });
             }}>
             Добавить
@@ -47,6 +55,7 @@ MenuBar.propTypes = {
   addOperation: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   fetchUser: PropTypes.func.isRequired,
+  isAddingOperation: PropTypes.bool.isRequired,
 };
 
 export default MenuBar;
