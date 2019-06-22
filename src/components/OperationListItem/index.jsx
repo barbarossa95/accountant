@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './OperationListItem.scss';
 
@@ -11,13 +12,17 @@ import {
 
 const OperationListItem = ({
   operation,
-  operation: { type, amount, description, timestamp },
+  operation: { type, amount, description, timestamp, removing = false },
   editHandler,
   removeHandler,
 }) => {
-  const time = timeFormat(timestamp);
+  const time = timeFormat(timestamp),
+    className = classNames('operation-list_item', operationCssClass(type), {
+      removing,
+    });
+
   return (
-    <div className={`operation-list_item ${operationCssClass(type)}`}>
+    <div className={className}>
       <div className="item_row">
         <span className="amount">{moneyFormat(amount)}</span>
       </div>
