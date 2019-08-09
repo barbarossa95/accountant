@@ -49,9 +49,11 @@ export const logout = () => async dispatch => {
   dispatch(push(PAGE_LOGIN));
 };
 
-export const checkAuth = () => async (dispatch, getState) => {
+export const fetchUser = () => async (dispatch, getState) => {
   try {
-    const token = getState().user.token || '';
+    const {
+      user: { token = '' },
+    } = getState();
 
     if (!token) {
       logout()(dispatch);

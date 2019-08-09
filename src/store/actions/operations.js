@@ -1,7 +1,8 @@
 import axios from '../../configs/axios';
 
 import * as actionTypes from '../actionTypes/operations';
-import { AUTH_FAIL } from '../actionTypes/user';
+
+import { logout } from '../actions/user';
 
 export const fetchOperations = () => async (dispatch, getSate) => {
   try {
@@ -21,71 +22,64 @@ export const fetchOperations = () => async (dispatch, getSate) => {
       operations: res.data,
     });
   } catch (e) {
-    if (e.request.status !== 200) {
-      console.error(e);
-    }
-    if (e.request.status === 401) {
-      localStorage.setItem('token', '');
-      dispatch({
-        type: AUTH_FAIL,
-      });
-    }
+    if (e.request && e.request.status === 401) logout()(dispatch);
+    console.error(e);
   }
 };
 
-export const addOperation = operation => async (dispatch, getSate) => {
+export const addOperation = newOperation => async (dispatch, getSate) => {
   try {
+    dispatch({
+      type: actionTypes.ADDING_OPERATION,
+    });
     const token = getSate().user.token || '';
-    await axios.post('/operation', operation, {
+    const { data: operation } = await axios.post('/operation', newOperation, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     dispatch({
-      type: actionTypes.ADD_OPERATION,
+      type: actionTypes.ADDED_OPERATION,
       operation,
     });
   } catch (e) {
-    if (e.request.status !== 200) {
-      console.error(e);
-    }
-    if (e.request.status === 401) {
-      localStorage.setItem('token', '');
-      dispatch({
-        type: AUTH_FAIL,
-      });
-    }
+    dispatch({
+      type: actionTypes.ADD_OPERATION_FAIL,
+    });
+    if (e.request && e.request.status === 401) logout()(dispatch);
+    console.error(e);
   }
 };
 
 export const removeOperation = operation => async (dispatch, getSate) => {
   try {
+    dispatch({
+      type: actionTypes.REMOVING_OPERATION,
+      operation,
+    });
+
     const token = getSate().user.token || '';
 
-    await axios.delete(`/operation/${operation.key}`, {
+    await axios.delete(`/operation/${operation._id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     dispatch({
-      type: actionTypes.REMOVE_OPERATION,
+      type: actionTypes.REMOVED_OPERATION,
       operation,
     });
 
     return true;
   } catch (e) {
-    if (e.request.status !== 200) {
-      console.error(e);
-    }
-    if (e.request.status === 401) {
-      localStorage.setItem('token', '');
-      dispatch({
-        type: AUTH_FAIL,
-      });
-    }
-
+    dispatch({
+      type: actionTypes.REMOVE_OPERATION_FAIL,
+      operation,
+    });
+    if (e.request && e.request.status === 401) logout()(dispatch);
+    console.error(e);
     return false;
   }
 };

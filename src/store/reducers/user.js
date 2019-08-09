@@ -33,14 +33,6 @@ const operationHandler = {
       loading: false,
     };
   },
-  [actionTypes.AUTH_FAIL](state) {
-    return {
-      ...state,
-      user: null,
-      token: null,
-      message: 'Необходима авторизация',
-    };
-  },
   [actionTypes.LOGOUT](state) {
     return {
       ...state,

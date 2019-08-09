@@ -5,9 +5,11 @@ import moment from 'moment';
 import * as constants from '../../helpers/constants';
 import { sortOperations } from '../../helpers/functions';
 
-export const getOperations = state => state.operations.operations;
-
+// Filter's selectors
 export const getPeriod = state => state.filters.period;
+
+// Operation's selectors
+export const getOperations = state => state.operations.operations;
 
 export const getGroupedOperations = createSelector(
   [getOperations, getPeriod],
@@ -47,12 +49,10 @@ export const getSortedOperations = createSelector(
 
 export const getBalance = state => state.operations.balance;
 
-export const getUserState = state => state.user;
+export const getIsAddingOperation = state => state.operations.isAdding;
 
-export const getAccessToken = createSelector(
-  [getUserState],
-  state => state.token
-);
+// User's selectors
+export const getUserState = state => state.user;
 
 export const getLoginLoading = createSelector(
   [getUserState],
@@ -71,5 +71,10 @@ export const getUser = createSelector(
 
 export const getUserName = createSelector(
   [getUser],
-  user => (!user ? null : user.name)
+  user => (!user ? 'username' : user.name)
+);
+
+export const getUserToken = createSelector(
+  [getUserState],
+  state => (!state.token ? null : state.token)
 );

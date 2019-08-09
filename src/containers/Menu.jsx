@@ -1,18 +1,23 @@
 import { connect } from 'react-redux';
 
-import { logout } from '../store/actions/user';
+import { fetchUser, logout } from '../store/actions/user';
 import { addOperation } from '../store/actions/operations';
 
-import { getUserName, getBalance } from '../store/selectors';
+import {
+  getUserName,
+  getBalance,
+  getIsAddingOperation,
+} from '../store/selectors';
 
 import MenuBar from '../components/MenuBar';
 
 const mapStateToProps = state => ({
   username: getUserName(state),
   balance: getBalance(state),
+  isAddingOperation: getIsAddingOperation(state),
 });
 
-const mapDispatchToProps = { logout, addOperation };
+const mapDispatchToProps = { fetchUser, logout, addOperation };
 
 export default connect(
   mapStateToProps,

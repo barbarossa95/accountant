@@ -1,8 +1,6 @@
 const { Router } = require('express'),
   { parseJwt, shouldAuth } = require('../../middleware'),
   OperationModel = require('../../models/operation'),
-  Operation = require('../../repositories/OperationRepo'),
-  operationRepo = new Operation(),
   router = Router();
 
 router
@@ -17,21 +15,24 @@ router
       });
   })
   .post('/', (req, res) => {
-    const data = req.body;
+    const { amount, description, timestamp, type } = req.body;
 
-    operationRepo
-      .create(data)
-      .then(operation => res.json({ operation }))
+    OperationModel.create({
+      amount,
+      description,
+      timestamp,
+      type,
+    })
+      .then(operation => res.json(operation))
       .catch(e => {
         console.error(e);
         res.sendStatus(500);
       });
   })
-  .delete('/:key', (req, res) => {
-    const { key = null } = req.params;
-    operationRepo
-      .remove(key)
-      .then(() => res.sendStatus(204))
+  .delete('/:_id', (req, res) => {
+    const { _id = null } = req.params;
+    OperationModel.deleteOne({ _id })
+      .then(({ ok }) => (ok ? res.sendStatus(204) : res.sendStatus(500)))
       .catch(e => {
         console.error(e);
         res.sendStatus(500);

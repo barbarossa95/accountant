@@ -23,6 +23,10 @@
     background: $red;
   }
 
+  &.removing {
+    opacity: 0.4;
+  }
+
   &:hover {
     .remove,
     .edit {
@@ -41,6 +45,7 @@
 
   .description {
     white-space: normal;
+    word-break: break-word;
   }
 
   .item_controls {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import CreateOperation from '../CreateOperation';
@@ -9,7 +9,18 @@ import { moneyFormat } from '../../helpers/functions';
 
 import './MenuBar.scss';
 
-const MenuBar = ({ username, balance, addOperation, logout }) => {
+const MenuBar = ({
+  username,
+  balance,
+  addOperation,
+  isAddingOperation,
+  logout,
+  fetchUser,
+}) => {
+  useEffect(() => {
+    fetchUser();
+  }, fetchUser);
+
   return (
     <nav>
       <ul>
@@ -24,6 +35,7 @@ const MenuBar = ({ username, balance, addOperation, logout }) => {
             onClick={() => {
               confirm(CreateOperation, {
                 submitHandler: addOperation,
+                loading: isAddingOperation,
               });
             }}>
             Добавить
@@ -42,6 +54,8 @@ MenuBar.propTypes = {
   balance: PropTypes.number.isRequired,
   addOperation: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  fetchUser: PropTypes.func.isRequired,
+  isAddingOperation: PropTypes.bool.isRequired,
 };
 
 export default MenuBar;

@@ -15,27 +15,32 @@ import {
 
 import './CreateOperation.scss';
 
-const CreateOperation = ({ submitHandler, dismiss = null }) => {
+const CreateOperation = ({ submitHandler, loading, dismiss = null }) => {
   const options = [c.OPERATION_CREDIT, c.OPERATION_DEBIT],
     initialValues = {
       type: c.OPERATION_CREDIT,
       amount: '',
       description: null,
       isCustomDate: false,
-      date: moment().format('YYYY-MM-DD'),
+      date: moment()
+        .utc()
+        .format('YYYY-MM-DD'),
     },
     onSubmit = (value, form) => {
       const timestamp = value.isCustomDate
         ? moment(value.date, 'YYYY-MM-DD').valueOf()
-        : moment().valueOf();
+        : moment.utc().valueOf();
 
       submitHandler({
         ...value,
         amount: Number(value.amount),
         timestamp,
-      });
-      form.reset();
-      dismiss && dismiss();
+      })
+        .then(() => {
+          form.reset();
+          dismiss && dismiss();
+        })
+        .catch(() => console.error('error'));
     };
 
   return (
@@ -139,7 +144,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
               <Button
                 className="success"
                 type="submit"
-                disabled={submitting || pristine}
+                disabled={submitting || pristine || loading}
                 tabIndex="5">
                 Добавить
               </Button>
@@ -164,6 +169,7 @@ const CreateOperation = ({ submitHandler, dismiss = null }) => {
 CreateOperation.propTypes = {
   submitHandler: PropTypes.func.isRequired,
   dismiss: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default CreateOperation;
