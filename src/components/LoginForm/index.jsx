@@ -43,6 +43,7 @@ const LoginForm = ({ login: dispatchLogin, loginMessage, loginLoading }) => {
                         id="login"
                         tabIndex="1"
                         placeholder="логин"
+                        autoComplete="username"
                       />
                     </label>
                   )}
@@ -58,6 +59,7 @@ const LoginForm = ({ login: dispatchLogin, loginMessage, loginLoading }) => {
                         id="password"
                         type="password"
                         placeholder="пароль"
+                        autoComplete="current-password"
                         tabIndex="2"
                       />
                     </label>
