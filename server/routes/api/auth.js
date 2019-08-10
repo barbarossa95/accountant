@@ -49,6 +49,6 @@ router
         res.status(403).json({ message: e.message });
       });
   })
-  .get('/', parseJwt, shouldAuth, (req, res) => res.json(req.payload));
+  .get('/', parseJwt, shouldAuth, (req, res) => res.json(req.payload.user));
 
 module.exports = router;
