@@ -51,16 +51,20 @@ export const logout = () => async dispatch => {
 
 export const fetchUser = () => async (dispatch, getState) => {
   try {
-    const token = getState().user.token || '';
+    const {
+      user: { token = '' },
+    } = getState();
 
-    if (!token) logout()(dispatch);
+    if (!token) {
+      logout()(dispatch);
+      return;
+    }
 
-    const response = await axios.get('/auth', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-      { user } = response.data;
+    const { data: user = null } = await axios.get('/auth', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     dispatch({
       type: actionTypes.FETCH_USER,
