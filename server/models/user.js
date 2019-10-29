@@ -24,9 +24,9 @@ userSchema.statics = {
     return await this.findOne({ name: username });
   },
   register: async function(username, password) {
-    const user = await this.findByLogin(username);
+    const userExists = await this.exists({ name: username });
 
-    if (!!user) throw new Error('Такой пользователь уже существует');
+    if (userExists) throw new Error('Такой пользователь уже существует');
 
     const passwordHash = await bcrypt.hash(password, 5);
 
