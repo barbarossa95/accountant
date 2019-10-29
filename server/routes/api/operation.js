@@ -1,7 +1,7 @@
-const { Router } = require('express'),
-  { parseJwt, shouldAuth } = require('../../middleware'),
-  OperationModel = require('../../models/operation'),
-  router = Router();
+const { Router } = require('express');
+const { parseJwt, shouldAuth } = require('../../middleware');
+const OperationModel = require('../../models/operation');
+const router = Router();
 
 router
   .use(parseJwt, shouldAuth)
