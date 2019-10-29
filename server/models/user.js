@@ -1,16 +1,16 @@
-const { Schema, model } = require('mongoose'),
-  bcrypt = require('bcrypt'),
-  jwt = require('jsonwebtoken'),
-  omit = require('omit'),
-  userSchema = new Schema({
-    name: {
-      type: String,
-      unique: true,
-      index: true,
-    },
-    passwordHash: String,
-  }),
-  MODEL_NAME = 'User';
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const omit = require('omit');
+const userSchema = new Schema({
+  name: {
+    type: String,
+    unique: true,
+    index: true,
+  },
+  passwordHash: String,
+});
+const MODEL_NAME = 'User';
 
 userSchema.methods = {
   omit: function(fields) {
@@ -37,21 +37,21 @@ userSchema.statics = {
   },
   createToken: async function(user) {
     const signOptions = {
-        issuer: 'greshilov.v inc.', // Issuer
-        subject: `user: @${user.name}`, // Subject
-        audience: 'http://heroku.com', // Audience
-        expiresIn: '24h',
-      },
-      token = await jwt.sign(
-        {
-          user: {
-            _id: user._id,
-            name: user.name,
-          },
+      issuer: 'greshilov.v inc.', // Issuer
+      subject: `user: @${user.name}`, // Subject
+      audience: 'http://heroku.com', // Audience
+      expiresIn: '48h',
+    };
+    const token = await jwt.sign(
+      {
+        user: {
+          _id: user._id,
+          name: user.name,
         },
-        process.env.EXPRESS_AUTH_SECRET,
-        signOptions
-      );
+      },
+      process.env.EXPRESS_AUTH_SECRET,
+      signOptions
+    );
 
     return {
       token,
