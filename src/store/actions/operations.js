@@ -36,7 +36,11 @@ export const fetchOperations = () => async (dispatch, getSate) => {
 export const addOperation = operation => async (dispatch, getSate) => {
   try {
     const token = getSate().user.token || '';
-    await axios.post('/operation', operation, {
+    const {
+      data: {
+        operation: { key },
+      },
+    } = await axios.post('/operation', operation, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +48,10 @@ export const addOperation = operation => async (dispatch, getSate) => {
 
     dispatch({
       type: actionTypes.ADD_OPERATION,
-      operation,
+      operation: {
+        ...operation,
+        key,
+      },
     });
   } catch (e) {
     if (e.request.status !== 200) {
@@ -62,6 +69,11 @@ export const addOperation = operation => async (dispatch, getSate) => {
 export const removeOperation = operation => async (dispatch, getSate) => {
   try {
     const token = getSate().user.token || '';
+    const { key = null } = operation;
+
+    if (!key) {
+      return false;
+    }
 
     await axios.delete(`/operation/${operation.key}`, {
       headers: {
