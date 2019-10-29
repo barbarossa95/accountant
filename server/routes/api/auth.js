@@ -46,7 +46,7 @@ router
       )
       .catch(e => {
         console.error(e);
-        res.status(403).json({ message: e.message });
+        res.status(500).json({ message: e.message });
       });
   })
   .get('/', parseJwt, shouldAuth, (req, res) => res.json(req.payload.user));
