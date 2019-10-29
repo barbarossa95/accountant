@@ -60,13 +60,13 @@ export const removeOperation = operation => async (dispatch, getSate) => {
     });
 
     const token = getSate().user.token || '';
-    const { key = null } = operation;
+    const { _id = null } = operation;
 
-    if (!key) {
+    if (!_id) {
       return false;
     }
 
-    await axios.delete(`/operation/${operation._id}`, {
+    await axios.delete(`/operation/${_id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
