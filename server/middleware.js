@@ -2,11 +2,11 @@ const jwt = require('jsonwebtoken');
 
 exports.parseJwt = (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(' ')[1];
+    const [, token] = req.headers.authorization.split(' ');
 
     jwt.verify(token, process.env.EXPRESS_AUTH_SECRET, (error, payload) => {
       if (error) {
-        console.error(error);
+        console.error('Request auth fail');
 
         return next();
       }

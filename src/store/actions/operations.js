@@ -60,6 +60,11 @@ export const removeOperation = operation => async (dispatch, getSate) => {
     });
 
     const token = getSate().user.token || '';
+    const { key = null } = operation;
+
+    if (!key) {
+      return false;
+    }
 
     await axios.delete(`/operation/${operation._id}`, {
       headers: {

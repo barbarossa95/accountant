@@ -6,6 +6,7 @@ import './OperationList.scss';
 import OperationListItem from '../OperationListItem';
 
 const OperationList = ({ operations, handlers }) => {
+  const { editHandler, removeHandler } = handlers;
   return (
     <div className="operation-list">
       {operations.length ? (
@@ -13,8 +14,8 @@ const OperationList = ({ operations, handlers }) => {
           <OperationListItem
             key={key}
             operation={operation}
-            editHandler={handlers.editHandler}
-            removeHandler={handlers.removeHandler}
+            editHandler={editHandler}
+            removeHandler={removeHandler}
           />
         ))
       ) : (
